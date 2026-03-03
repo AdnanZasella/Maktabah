@@ -3053,3 +3053,8 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
 2026-03-03T20:09:50.996+01:00  WARN 13140 --- [http-nio-8080-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/auth/me.]
+2026-03-03T20:13:11.125+01:00  INFO 13140 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-03T20:13:11.130+01:00  INFO 13140 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-03-03T20:13:11.134+01:00  INFO 13140 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-03T20:13:11.136+01:00  INFO 13140 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-03T20:13:11.137+01:00  INFO 13140 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

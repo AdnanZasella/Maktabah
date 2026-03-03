@@ -73,7 +73,7 @@ export async function completeStep(stepId) {
 
 // ── Auth ──────────────────────────────────────────────────────────────
 
-export async function getCurrentUser() {
+export async function fetchCurrentUser() {
   const res = await fetch(`${API_BASE}/api/auth/me`, OPTS);
   if (!res.ok) return null;
   return res.json();

@@ -10,7 +10,7 @@ let fetched = false;
 export async function getCurrentUser() {
   if (fetched) return currentUser;
   try {
-    const res = await fetch('/api/auth/me', { credentials: 'include' });
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || ''}/api/auth/me`, { credentials: 'include' });
     currentUser = res.ok ? await res.json() : null;
   } catch {
     currentUser = null;
