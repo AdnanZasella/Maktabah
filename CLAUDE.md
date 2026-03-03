@@ -657,10 +657,20 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 3 — Book model and repository
     Step 4 — Field and Book service and controllers
     Step 5 — PDF file serving endpoint
+    Step 6 — Frontend basic page showing fields
+    Step 7 — Click field to show books (built inside Step 6)
+    Step 8 — PDF download button (built inside Step 6)
+    Step 9 — Styling and layout polish
     Currently Working On
-    Step 10 — Roadmap models and database tables
+    Frontend code review — checking for early bugs before moving to Step 10
     Up Next
-    Step 11 — Roadmap API endpoints
+    Step 10 — Roadmap models and database tables
+    Extra Features Added Beyond Steps (not in original checklist)
+    - Home/hero landing page at #/ with feature cards
+    - Field cards show one-line descriptions of each Islamic field
+    - Book cards have "Read more →" modal showing author biography and full description
+    - author_bio TEXT column added to books table (nullable, auto-added by Hibernate)
+    - "← Home" back link on library page
     Step Checklist
     Step 1 — Spring Boot setup and PostgreSQL connection ✓
     Step 2 — Field model and repository ✓
