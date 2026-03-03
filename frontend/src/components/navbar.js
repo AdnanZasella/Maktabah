@@ -27,7 +27,7 @@ export function renderNavbar(activeRoute, user) {
 
   nav.innerHTML = `
     <div class="navbar-inner">
-      <a href="#/library" class="navbar-logo">
+      <a href="#/" class="navbar-logo">
         <span class="logo-text">Maktabah</span>
         <span class="logo-arabic">مكتبة</span>
       </a>

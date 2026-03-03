@@ -6,7 +6,7 @@ import { getCurrentUser, clearUserCache } from './auth.js';
 export { clearUserCache };
 
 const routes = {
-  '/':         () => import('./pages/library.js').then(m => m.renderLibrary),
+  '/':         () => import('./pages/home.js').then(m => m.renderHome),
   '/library':  () => import('./pages/library.js').then(m => m.renderLibrary),
   '/roadmap':  () => import('./pages/roadmap.js').then(m => m.renderRoadmap),
   '/fiqhtool': () => import('./pages/fiqhtool.js').then(m => m.renderFiqhTool),
@@ -29,8 +29,8 @@ async function navigate() {
 
   app.innerHTML = '';
 
-  // Navbar knows the active route — map '/' to '/library' for highlight purposes
-  const activeRoute = route === '/' ? '/library' : route;
+  // On home '/' no nav link should be highlighted
+  const activeRoute = route;
   const navbar = renderNavbar(activeRoute, user);
   app.appendChild(navbar);
 

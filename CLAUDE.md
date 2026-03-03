@@ -658,9 +658,9 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 4 — Field and Book service and controllers
     Step 5 — PDF file serving endpoint
     Currently Working On
-    Step 7 — Click field to show books (field → subfield → books flow already built in Step 6; Step 7 may be considered complete)
+    Step 10 — Roadmap models and database tables
     Up Next
-    Step 8 — PDF download button (auth-aware download UI already scaffolded; needs live auth from Step 13)
+    Step 11 — Roadmap API endpoints
     Step Checklist
     Step 1 — Spring Boot setup and PostgreSQL connection ✓
     Step 2 — Field model and repository ✓
@@ -668,9 +668,9 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 4 — Field and Book service and controllers ✓
     Step 5 — PDF file serving endpoint ✓
     Step 6 — Frontend basic page showing fields ✓
-    Step 7 — Click field to show books
-    Step 8 — PDF download button
-    Step 9 — Styling and layout polish
+    Step 7 — Click field to show books ✓
+    Step 8 — PDF download button ✓
+    Step 9 — Styling and layout polish ✓
     Step 10 — Roadmap models and database tables
     Step 11 — Roadmap API endpoints
     Step 12 — Roadmap frontend page
