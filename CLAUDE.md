@@ -652,17 +652,21 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
 
 21. Current Progress
     Completed Steps
-    None yet — project starting now.
-    Currently Working On
-    Step 1 — Spring Boot project setup and PostgreSQL connection
-    Up Next
-    Step 2 — Field model and repository
-    Step Checklist
     Step 1 — Spring Boot setup and PostgreSQL connection
     Step 2 — Field model and repository
     Step 3 — Book model and repository
     Step 4 — Field and Book service and controllers
     Step 5 — PDF file serving endpoint
+    Currently Working On
+    Testing Steps 1-5 — environment variables being configured, app not yet run
+    Up Next
+    Step 6 — Frontend basic page showing fields
+    Step Checklist
+    Step 1 — Spring Boot setup and PostgreSQL connection ✓
+    Step 2 — Field model and repository ✓
+    Step 3 — Book model and repository ✓
+    Step 4 — Field and Book service and controllers ✓
+    Step 5 — PDF file serving endpoint ✓
     Step 6 — Frontend basic page showing fields
     Step 7 — Click field to show books
     Step 8 — PDF download button
