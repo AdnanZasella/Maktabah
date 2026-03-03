@@ -65,6 +65,7 @@ public class BookService {
                 book.getField().getId(),
                 book.getLevel(),
                 book.getDescription(),
+                book.getAuthorBio(),
                 book.getPdfFilename()
         );
     }

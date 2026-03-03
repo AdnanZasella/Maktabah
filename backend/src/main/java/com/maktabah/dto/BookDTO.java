@@ -8,18 +8,20 @@ public class BookDTO {
     private Long fieldId;
     private String level;
     private String description;
+    private String authorBio;
     private String pdfFilename;
 
     public BookDTO() {}
 
     public BookDTO(Long id, String title, String author, Long fieldId,
-                   String level, String description, String pdfFilename) {
+                   String level, String description, String authorBio, String pdfFilename) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.fieldId = fieldId;
         this.level = level;
         this.description = description;
+        this.authorBio = authorBio;
         this.pdfFilename = pdfFilename;
     }
 
@@ -40,6 +42,9 @@ public class BookDTO {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getAuthorBio() { return authorBio; }
+    public void setAuthorBio(String authorBio) { this.authorBio = authorBio; }
 
     public String getPdfFilename() { return pdfFilename; }
     public void setPdfFilename(String pdfFilename) { this.pdfFilename = pdfFilename; }

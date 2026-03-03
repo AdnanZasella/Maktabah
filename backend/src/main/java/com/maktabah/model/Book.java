@@ -26,6 +26,9 @@ public class Book {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "author_bio", columnDefinition = "TEXT")
+    private String authorBio;
+
     @Column(name = "pdf_filename", nullable = false, length = 500)
     private String pdfFilename;
 
@@ -46,6 +49,9 @@ public class Book {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getAuthorBio() { return authorBio; }
+    public void setAuthorBio(String authorBio) { this.authorBio = authorBio; }
 
     public String getPdfFilename() { return pdfFilename; }
     public void setPdfFilename(String pdfFilename) { this.pdfFilename = pdfFilename; }
