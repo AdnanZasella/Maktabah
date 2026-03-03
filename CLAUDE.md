@@ -658,16 +658,16 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 4 — Field and Book service and controllers
     Step 5 — PDF file serving endpoint
     Currently Working On
-    Testing Steps 1-5 — environment variables being configured, app not yet run
+    Step 7 — Click field to show books (field → subfield → books flow already built in Step 6; Step 7 may be considered complete)
     Up Next
-    Step 6 — Frontend basic page showing fields
+    Step 8 — PDF download button (auth-aware download UI already scaffolded; needs live auth from Step 13)
     Step Checklist
     Step 1 — Spring Boot setup and PostgreSQL connection ✓
     Step 2 — Field model and repository ✓
     Step 3 — Book model and repository ✓
     Step 4 — Field and Book service and controllers ✓
     Step 5 — PDF file serving endpoint ✓
-    Step 6 — Frontend basic page showing fields
+    Step 6 — Frontend basic page showing fields ✓
     Step 7 — Click field to show books
     Step 8 — PDF download button
     Step 9 — Styling and layout polish
