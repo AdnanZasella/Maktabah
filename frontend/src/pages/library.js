@@ -12,6 +12,7 @@ import { createBookCard } from '../components/bookcard.js';
  */
 export async function renderLibrary(container, user) {
   container.innerHTML = `
+    <a href="#/" class="back-home-link">← Home</a>
     <div class="library-header">
       <h1 class="library-title">Islamic Library</h1>
       <p class="library-subtitle">Browse our collection of verified Islamic books</p>

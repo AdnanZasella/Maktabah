@@ -3,13 +3,29 @@
  */
 
 const FIELD_COLORS = {
-  'Aqeedah': { accent: '#10B981', bg: '#ECFDF5' },
-  'Fiqh':    { accent: '#3B82F6', bg: '#EFF6FF' },
-  'Hadith':  { accent: '#F59E0B', bg: '#FFFBEB' },
-  'Seerah':  { accent: '#8B5CF6', bg: '#F5F3FF' },
+  'Aqeedah': {
+    accent: '#10B981',
+    bg: '#ECFDF5',
+    description: 'Islamic creed — tawheed, the names and attributes of Allah, and the foundational beliefs every Muslim must know.',
+  },
+  'Fiqh': {
+    accent: '#3B82F6',
+    bg: '#EFF6FF',
+    description: 'Islamic jurisprudence — rulings on worship, transactions, and daily life across the four madhabs: Hanafi, Maliki, Shafi\'i, and Hanbali.',
+  },
+  'Hadith': {
+    accent: '#F59E0B',
+    bg: '#FFFBEB',
+    description: 'The sayings and actions of the Prophet ﷺ — including the science of hadith evaluation and commentary on the major collections.',
+  },
+  'Seerah': {
+    accent: '#8B5CF6',
+    bg: '#F5F3FF',
+    description: 'The life of the Prophet ﷺ, the stories of his Companions, and the history of the early Muslim community.',
+  },
 };
 
-const DEFAULT_COLORS = { accent: '#6B7280', bg: '#F9FAFB' };
+const DEFAULT_COLORS = { accent: '#6B7280', bg: '#F9FAFB', description: null };
 
 /**
  * Returns color pair for a field name.
@@ -40,6 +56,9 @@ export function createFieldCard(field, colors, onClick) {
     <div class="field-card-accent" style="background: ${colors.accent}"></div>
     <div class="field-card-body">
       <div class="field-card-name">${escapeHtml(field.name)}</div>
+      ${colors.description
+        ? `<p class="field-card-description">${escapeHtml(colors.description)}</p>`
+        : ''}
       <div class="field-card-hint">${hint} →</div>
     </div>
   `;
