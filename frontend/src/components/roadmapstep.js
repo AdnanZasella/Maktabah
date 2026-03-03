@@ -1,42 +1,36 @@
 /**
- * Single roadmap step component.
+ * Roadmap step details panel.
+ * Rendered below the path when a node is clicked.
  * Download button behaviour matches bookcard.js exactly.
  */
 import { downloadBook } from '../api.js';
 
 /**
- * @param {object} step       - RoadmapStepDTO
- * @param {number} stepNumber - 1-based display number
- * @param {object|null} user  - current user or null
- * @param {boolean} isCompleted
- * @param {(stepId: number) => Promise<void>} onComplete - called when mark-complete succeeds
+ * @param {object}   step        - RoadmapStepDTO
+ * @param {object|null} user     - current user or null
+ * @param {boolean}  isCompleted
+ * @param {(stepId: number) => Promise<void>} onComplete
  * @returns {HTMLElement}
  */
-export function createRoadmapStep(step, stepNumber, user, isCompleted, onComplete) {
+export function createStepDetails(step, user, isCompleted, onComplete) {
   const el = document.createElement('div');
-  el.className = `roadmap-step${isCompleted ? ' completed' : ''}`;
+  el.className = `step-detail-card${isCompleted ? ' completed' : ''}`;
 
   el.innerHTML = `
-    <div class="step-marker">
-      <div class="step-circle${isCompleted ? ' step-circle-done' : ''}">
-        ${isCompleted ? '✓' : stepNumber}
-      </div>
-      <div class="step-line"></div>
-    </div>
-    <div class="step-body">
+    <div class="step-detail-meta">
       <span class="book-card-level ${esc(step.level)}">${esc(step.level)}</span>
-      <h3 class="step-title">${esc(step.bookTitle)}</h3>
-      <p class="step-author">by ${esc(step.bookAuthor)}</p>
-      <p class="step-description">${esc(step.description)}</p>
-      <div class="step-footer">
-        <div class="step-download-area"></div>
-        ${user ? `
-          <button class="step-complete-btn${isCompleted ? ' done' : ''}"
-                  ${isCompleted ? 'disabled' : ''}>
-            ${isCompleted ? '✓ Completed' : 'Mark complete'}
-          </button>
-        ` : ''}
-      </div>
+    </div>
+    <h3 class="step-title">${esc(step.bookTitle)}</h3>
+    <p class="step-author">by ${esc(step.bookAuthor)}</p>
+    <p class="step-description">${esc(step.description)}</p>
+    <div class="step-footer">
+      <div class="step-download-area"></div>
+      ${user ? `
+        <button class="step-complete-btn${isCompleted ? ' done' : ''}"
+                ${isCompleted ? 'disabled' : ''}>
+          ${isCompleted ? '✓ Completed' : 'Mark complete'}
+        </button>
+      ` : ''}
     </div>
   `;
 
@@ -52,9 +46,6 @@ export function createRoadmapStep(step, stepNumber, user, isCompleted, onComplet
         btn.textContent = '✓ Completed';
         btn.classList.add('done');
         el.classList.add('completed');
-        const circle = el.querySelector('.step-circle');
-        circle.textContent = '✓';
-        circle.classList.add('step-circle-done');
       } catch {
         btn.textContent = 'Mark complete';
         btn.disabled = false;
@@ -92,10 +83,7 @@ function buildDownloadArea(container, step, user) {
         await downloadBook(step.bookId);
       } catch {
         btn.textContent = 'Download failed';
-        setTimeout(() => {
-          btn.textContent = 'Download Book';
-          btn.disabled = false;
-        }, 2000);
+        setTimeout(() => { btn.textContent = 'Download Book'; btn.disabled = false; }, 2000);
         return;
       }
       btn.textContent = 'Download Book';
