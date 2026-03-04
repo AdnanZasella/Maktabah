@@ -1,6 +1,8 @@
 CLAUDE.md — Maktabah Project Bible
 Read this entire file before doing anything. This is the single source of truth for the Maktabah project. Never make assumptions — if something is not in this file, ask before proceeding.
 
+Claude must always prioritize data integrity over convenience, security over speed, and explicit design over inferred behavior.
+
 1. What Is Maktabah
    Maktabah (Arabic: مَكْتَبَة — meaning "library") is a web-based Islamic knowledge platform for Muslim students of knowledge at all levels — beginner, intermediate, and advanced. It solves a real problem that currently has no good solution: there is no clean, modern, well-organized platform in the English-speaking world that combines a verified Islamic book library, structured learning roadmaps, and a scholarly-backed fiqh comparison tool in one place.
    The platform is backed by real imams who verify all fiqh rulings before they go live. The developer has a large existing collection of Islamic PDF books ready to upload. These two things are the biggest advantages this project has over anything that currently exists.
@@ -663,7 +665,7 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 9 — Styling and layout polish
     Frontend code review — checking for early bugs before moving to Step 10 
     Currently Working On
-    Step 10 — Roadmap models and database tables
+    Step 14 — Progress tracking
     Extra Features Added Beyond Steps (not in original checklist)
     - Home/hero landing page at #/ with feature cards
     - Field cards show one-line descriptions of each Islamic field
@@ -681,10 +683,10 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 7 — Click field to show books ✓
     Step 8 — PDF download button ✓
     Step 9 — Styling and layout polish ✓
-    Step 10 — Roadmap models and database tables
-    Step 11 — Roadmap API endpoints
-    Step 12 — Roadmap frontend page
-    Step 13 — User registration and login
+    Step 10 — Roadmap models and database tables ✓
+    Step 11 — Roadmap API endpoints ✓
+    Step 12 — Roadmap frontend page ✓
+    Step 13 — User registration and login ✓
     Step 14 — Progress tracking
     Step 15 — Stripe payments and access control
     Step 16 — Masalah and MadhabOpinion models

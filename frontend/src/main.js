@@ -27,6 +27,19 @@ async function navigate() {
 
   const user = await getCurrentUser();
 
+  // ── Auth redirect guards ──────────────────────────────────────────────────
+  // /account requires login — redirect to /login if not authenticated
+  if (route === '/account' && !user) {
+    window.location.hash = '#/login';
+    return;
+  }
+  // /login and /register redirect to /library if already logged in
+  if ((route === '/login' || route === '/register') && user) {
+    window.location.hash = '#/library';
+    return;
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   app.innerHTML = '';
 
   // On home '/' no nav link should be highlighted

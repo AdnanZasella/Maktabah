@@ -1243,6 +1243,137 @@ button {
   }
 }
 
+/* ── Auth pages (login / register) ────────────────────────────────── */
+.auth-page {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.auth-heading {
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.375rem;
+}
+
+.auth-subheading {
+  font-size: 0.9375rem;
+  color: #6B7280;
+  margin-bottom: 2rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-input {
+  padding: 0.6875rem 0.875rem;
+  border: 1.5px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: #111827;
+  background: #FFFFFF;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.form-input::placeholder {
+  color: #9CA3AF;
+}
+
+.auth-submit-btn {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #1B4332;
+  color: #ECFDF5;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: #14532D;
+}
+
+.auth-submit-btn:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.auth-error {
+  padding: 0.75rem 0.875rem;
+  background: #FEF2F2;
+  border: 1.5px solid #FECACA;
+  border-radius: 8px;
+  color: #991B1B;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: none;
+}
+
+.auth-error.visible {
+  display: block;
+}
+
+.auth-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: #6B7280;
+}
+
+.auth-footer a {
+  color: #10B981;
+  font-weight: 600;
+}
+
+.auth-footer a:hover {
+  color: #047857;
+  text-decoration: underline;
+}
+
 @media (max-width: 480px) {
   .content-grid {
     grid-template-columns: 1fr;

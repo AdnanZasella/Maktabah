@@ -21,6 +21,13 @@ public class GlobalExceptionHandler {
                 .body(Map.of("message", "Resource not found"));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleBadRequest(IllegalArgumentException ex) {
+        logger.warn("Bad request: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("message", ex.getMessage()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneral(Exception ex) {
         logger.error("Unexpected error", ex);
