@@ -845,3 +845,7 @@ When the PDF library grows large or the VPS disk fills up, migrate to object sto
 - Everything else in the codebase is unaffected
 
 This migration is not needed at launch — plan for it when storage exceeds 10GB.
+
+"At the end of this session, update MEMORY.md with anything worth remembering — decisions made, bugs fixed, dead ends found."
+
+Make it a good habit to tell me the context left on this conversation so it dont drag it too long
