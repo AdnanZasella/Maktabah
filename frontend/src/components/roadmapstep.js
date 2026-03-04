@@ -12,9 +12,16 @@ import { downloadBook } from '../api.js';
  * @param {(stepId: number) => Promise<void>} onComplete
  * @returns {HTMLElement}
  */
-export function createStepDetails(step, user, isCompleted, onComplete) {
+export function createStepDetails(step, user, isCompleted, onComplete, isLastStep = false) {
   const el = document.createElement('div');
   el.className = `step-detail-card${isCompleted ? ' completed' : ''}`;
+
+  // Every unlocked, non-completed node gets the green "I finished this book" button.
+  const showCompleteBtn = !isCompleted;
+  const completeBtnLabel = isLastStep
+    ? 'I finished this book \u2713'
+    : `I finished this book \u2014 Unlock Step ${step.stepOrder + 1}`;
+  const completeBtnClass = 'step-complete-btn step-unlock-btn';
 
   el.innerHTML = `
     <div class="step-detail-meta">
@@ -23,20 +30,42 @@ export function createStepDetails(step, user, isCompleted, onComplete) {
     <h3 class="step-title">${esc(step.bookTitle)}</h3>
     <p class="step-author">by ${esc(step.bookAuthor)}</p>
     <p class="step-description">${esc(step.description)}</p>
+    <button class="step-read-more-btn" hidden>Read more</button>
     <div class="step-footer">
       <div class="step-download-area"></div>
-      ${user ? `
-        <button class="step-complete-btn${isCompleted ? ' done' : ''}"
-                ${isCompleted ? 'disabled' : ''}>
-          ${isCompleted ? '✓ Completed' : 'Mark complete'}
-        </button>
-      ` : ''}
+      ${isCompleted ? `
+        <button class="step-complete-btn done" disabled>✓ Completed</button>
+      ` : (showCompleteBtn ? `
+        <button class="${completeBtnClass}">${completeBtnLabel}</button>
+      ` : '')}
     </div>
   `;
 
   buildDownloadArea(el.querySelector('.step-download-area'), step, user);
 
-  if (user && !isCompleted) {
+  // Read more / Read less — check for overflow after element is painted
+  const descEl = el.querySelector('.step-description');
+  const readMoreBtn = el.querySelector('.step-read-more-btn');
+  let expanded = false;
+
+  requestAnimationFrame(() => {
+    if (descEl.scrollHeight > descEl.clientHeight) {
+      readMoreBtn.hidden = false;
+    }
+  });
+
+  readMoreBtn.addEventListener('click', () => {
+    expanded = !expanded;
+    if (expanded) {
+      descEl.style.maxHeight = descEl.scrollHeight + 'px';
+      readMoreBtn.textContent = 'Read less';
+    } else {
+      descEl.style.maxHeight = '';
+      readMoreBtn.textContent = 'Read more';
+    }
+  });
+
+  if (showCompleteBtn) {
     el.querySelector('.step-complete-btn').addEventListener('click', async e => {
       const btn = e.currentTarget;
       btn.textContent = 'Saving…';
@@ -44,10 +73,11 @@ export function createStepDetails(step, user, isCompleted, onComplete) {
       try {
         await onComplete(step.id);
         btn.textContent = '✓ Completed';
-        btn.classList.add('done');
+        btn.className = 'step-complete-btn done';
         el.classList.add('completed');
       } catch {
-        btn.textContent = 'Mark complete';
+        btn.textContent = completeBtnLabel;
+        btn.className = completeBtnClass;
         btn.disabled = false;
       }
     });

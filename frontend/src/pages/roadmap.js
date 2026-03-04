@@ -1,5 +1,6 @@
 import { getFields, getRoadmap, getProgress, completeStep } from '../api.js';
 import { createStepDetails } from '../components/roadmapstep.js';
+import { getFieldColors } from '../components/fieldcard.js';
 
 export async function renderRoadmap(container, user) {
   container.innerHTML = `
@@ -23,9 +24,7 @@ export async function renderRoadmap(container, user) {
           </div>
           <div class="roadmap-selector-group">
             <span class="selector-label">Field</span>
-            <select class="field-select" id="field-select" disabled>
-              <option value="">Select a level first</option>
-            </select>
+            <div class="field-btns" id="field-btns"></div>
           </div>
         </div>
 
@@ -46,33 +45,61 @@ export async function renderRoadmap(container, user) {
   let completedIds    = new Set();
   let fields          = [];
 
-  try { fields = await getFields(); } catch { /* dropdown stays disabled */ }
+  try { fields = await getFields(); } catch { /* field buttons stay empty */ }
 
-  const fieldSelect = document.getElementById('field-select');
+  const fieldBtnsEl = document.getElementById('field-btns');
   const levelBtns   = container.querySelectorAll('#level-btns .filter-btn');
 
+  // Build one colored button per field
+  fields.forEach(f => {
+    const colors     = getFieldColors(f.name);
+    const inactiveBg = colors.inactiveBg || colors.bg;
+    const activeBg   = colors.activeBtn  || colors.accent;
+    const activeText = colors.activeText || '#111827';
+
+    const btn = document.createElement('button');
+    btn.className = 'field-btn';
+    btn.textContent = f.name;
+    // Store per-field colours for restore on deactivation
+    btn.dataset.inactiveBg = inactiveBg;
+    btn.dataset.activeBg   = activeBg;
+    btn.dataset.activeText = activeText;
+
+    // Inactive: medium-bright tint, dark text
+    btn.style.background = inactiveBg;
+    btn.style.color      = '#1F2937';
+
+    btn.addEventListener('click', () => {
+      // Restore all buttons to their own inactive state
+      fieldBtnsEl.querySelectorAll('.field-btn').forEach(b => {
+        b.classList.remove('active');
+        b.style.background  = b.dataset.inactiveBg;
+        b.style.color       = '#1F2937';
+        b.style.borderColor = 'transparent';
+        b.style.boxShadow   = '';
+      });
+      // Active: vivid bright colour, high-contrast dark text
+      btn.classList.add('active');
+      btn.style.background  = activeBg;
+      btn.style.color       = activeText;
+      btn.style.borderColor = activeBg;
+      btn.style.boxShadow   = `0 0 0 2px ${activeBg}`;
+
+      selectedFieldId = f.id;
+      if (selectedLevel) loadRoadmap();
+    });
+
+    fieldBtnsEl.appendChild(btn);
+  });
+
+  // Level buttons — just set level and load if a field is already selected
   levelBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       levelBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       selectedLevel = btn.dataset.level;
-
-      fieldSelect.disabled = false;
-      fieldSelect.innerHTML = '<option value="">Select a field…</option>';
-      fields.forEach(f => {
-        const opt = document.createElement('option');
-        opt.value       = f.id;
-        opt.textContent = f.name;
-        fieldSelect.appendChild(opt);
-      });
-
-      if (selectedFieldId) { fieldSelect.value = selectedFieldId; loadRoadmap(); }
+      if (selectedFieldId) loadRoadmap();
     });
-  });
-
-  fieldSelect.addEventListener('change', () => {
-    selectedFieldId = fieldSelect.value ? Number(fieldSelect.value) : null;
-    if (selectedLevel && selectedFieldId) loadRoadmap();
   });
 
   async function loadRoadmap() {
@@ -132,8 +159,9 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
     const isCompleted = completedIds.has(step.id);
     const idx = steps.indexOf(step);
 
+    const isLastStep = idx === steps.length - 1;
     const detail = createStepDetails(step, user, isCompleted, async stepId => {
-      await completeStep(stepId);
+      if (user) await completeStep(stepId);
       completedIds.add(stepId);
 
       // Mark current node as completed
@@ -147,13 +175,21 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
 
       // Unlock the next node
       if (idx + 1 < steps.length) {
-        const nextStep = steps[idx + 1];
-        const nextEl   = nodeEls[idx + 1];
+        const nextStep   = steps[idx + 1];
+        const nextEl     = nodeEls[idx + 1];
         const nextCircle = nextEl.querySelector('.path-node-circle');
+        const lockHint   = nextEl.querySelector('.path-node-lock-hint');
 
         nextEl.classList.replace('locked', 'available');
         nextCircle.classList.replace('locked', 'available');
         nextCircle.textContent = nextStep.stepOrder;
+
+        // Pop + glow animation on the newly unlocked circle
+        nextCircle.classList.add('just-unlocked');
+        nextCircle.addEventListener('animationend', () => nextCircle.classList.remove('just-unlocked'), { once: true });
+
+        // Remove the "Finish Step X first" hint
+        if (lockHint) lockHint.remove();
 
         nextEl.setAttribute('tabindex', '0');
         nextEl.setAttribute('role', 'button');
@@ -165,7 +201,7 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectStep(nextStep, nextEl); }
         });
       }
-    });
+    }, isLastStep);
 
     detailContainer.appendChild(detail);
     detailContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -174,8 +210,8 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
   steps.forEach((step, index) => {
     const isRight     = index % 2 === 0;
     const isCompleted = completedIds.has(step.id);
-    // Locked: only when user is logged in AND the previous step has not been completed yet
-    const isLocked    = user !== null && index > 0 && !completedIds.has(steps[index - 1].id);
+    // Step 1 (index 0) is always unlocked. Steps 2+ lock until the previous step is completed.
+    const isLocked    = index > 0 && !completedIds.has(steps[index - 1].id);
 
     const state = isCompleted ? 'completed' : (isLocked ? 'locked' : 'available');
 
@@ -193,6 +229,7 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
       </div>
       <div class="path-node-label">
         <span class="path-node-title">${esc(step.bookTitle)}</span>
+        ${isLocked ? `<span class="path-node-lock-hint">Finish Step ${step.stepOrder - 1} first</span>` : ''}
       </div>
     `;
 
