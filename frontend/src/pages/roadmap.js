@@ -161,7 +161,8 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
 
     const isLastStep = idx === steps.length - 1;
     const detail = createStepDetails(step, user, isCompleted, async stepId => {
-      if (user) await completeStep(stepId);
+      if (!user) { window.location.hash = '/login'; return; }
+      await completeStep(stepId);
       completedIds.add(stepId);
 
       // Mark current node as completed

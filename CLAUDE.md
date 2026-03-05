@@ -663,9 +663,9 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 7 — Click field to show books (built inside Step 6)
     Step 8 — PDF download button (built inside Step 6)
     Step 9 — Styling and layout polish
-    Frontend code review — checking for early bugs before moving to Step 10 
+    Frontend code review — checking for early bugs before moving to Step 10
     Currently Working On
-    Step 14 — Progress tracking
+    Step 15 — Stripe payments and access control (not started — Step 14 fully tested and verified)
     Extra Features Added Beyond Steps (not in original checklist)
     - Home/hero landing page at #/ with feature cards
     - Field cards show one-line descriptions of each Islamic field
@@ -687,7 +687,7 @@ In development all fetch('/api/...') calls in the frontend automatically go to t
     Step 11 — Roadmap API endpoints ✓
     Step 12 — Roadmap frontend page ✓
     Step 13 — User registration and login ✓
-    Step 14 — Progress tracking
+    Step 14 — Progress tracking ✓
     Step 15 — Stripe payments and access control
     Step 16 — Masalah and MadhabOpinion models
     Step 17 — Fiqh Tool API endpoints
