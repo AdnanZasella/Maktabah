@@ -4,6 +4,7 @@ import com.maktabah.dto.BookDTO;
 import com.maktabah.exception.ResourceNotFoundException;
 import com.maktabah.model.Book;
 import com.maktabah.repository.BookRepository;
+import com.maktabah.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -18,12 +19,20 @@ import java.util.List;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final UserRepository userRepository;
 
     @Value("${app.pdf.storage.path}")
     private String pdfStoragePath;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, UserRepository userRepository) {
         this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
+    }
+
+    public boolean isUserPaid(Long userId) {
+        return userRepository.findById(userId)
+                .map(u -> "paid".equals(u.getSubscriptionStatus()))
+                .orElse(false);
     }
 
     public List<BookDTO> getBooksByField(Long fieldId, String level) {

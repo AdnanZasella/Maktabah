@@ -18,7 +18,8 @@ const routes = {
 function getRoute() {
   const hash = window.location.hash;
   if (!hash || hash === '#' || hash === '#/') return '/';
-  return hash.slice(1); // remove the leading #
+  const hashPath = hash.slice(1); // remove the leading #
+  return hashPath.split('?')[0]; // strip query params — route matching uses path only
 }
 
 async function navigate() {

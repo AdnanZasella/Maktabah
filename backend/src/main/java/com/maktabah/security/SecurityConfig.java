@@ -68,10 +68,18 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 // Field endpoints — public (browsing fields requires no login)
                 .requestMatchers("/api/fields/**").permitAll()
-                // Masail categories — public
-                .requestMatchers(HttpMethod.GET, "/api/masail/categories").permitAll()
+                // Book listing — public (browsing books requires no login; download is secured separately)
+                .requestMatchers(HttpMethod.GET, "/api/books").permitAll()
                 // Stripe webhook — public (verified by signature inside the handler)
                 .requestMatchers("/api/payment/webhook").permitAll()
+                // Masail categories — public (MUST appear before /api/masail/**)
+                .requestMatchers(HttpMethod.GET, "/api/masail/categories").permitAll()
+                // Stripe checkout — requires valid JWT
+                .requestMatchers("/api/payment/create-checkout").authenticated()
+                // PDF download — requires valid JWT (paid check happens in BookController)
+                .requestMatchers("/api/books/*/download").authenticated()
+                // All masail endpoints — requires valid JWT (paid check happens in controller)
+                .requestMatchers("/api/masail/**").authenticated()
                 // Everything else requires a valid JWT cookie
                 .anyRequest().authenticated()
             );

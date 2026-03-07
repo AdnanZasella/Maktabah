@@ -113,18 +113,6 @@ function buildDownloadArea(container, book, user) {
     btn.addEventListener('click', () => { window.location.hash = '#/login'; });
     container.appendChild(btn);
 
-  } else if (user.subscriptionStatus !== 'paid') {
-    const btn = makeBtn('Download Book');
-    btn.addEventListener('click', () => {
-      container.innerHTML = '';
-      const link = document.createElement('a');
-      link.href = '#/account';
-      link.className = 'upgrade-btn';
-      link.textContent = 'Upgrade to download this book';
-      container.appendChild(link);
-    });
-    container.appendChild(btn);
-
   } else {
     const btn = makeBtn('Download Book');
     btn.addEventListener('click', async () => {

@@ -1,4 +1,5 @@
-import { getFields, getSubfields, getBooks } from '../api.js';
+import { getFields, getSubfields, getBooks, downloadBook } from '../api.js';
+import { getCurrentUser } from '../auth.js';
 import { createFieldCard, getFieldColors } from '../components/fieldcard.js';
 import { createBookCard } from '../components/bookcard.js';
 

@@ -1,6 +1,7 @@
 import { getFields, getRoadmap, getProgress, completeStep } from '../api.js';
 import { createStepDetails } from '../components/roadmapstep.js';
 import { getFieldColors } from '../components/fieldcard.js';
+import { isPaid } from '../auth.js';
 
 export async function renderRoadmap(container, user) {
   container.innerHTML = `
@@ -151,6 +152,9 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
   let selectedNodeEl = null;
 
   function selectStep(step, nodeEl) {
+    if (!user) { window.location.hash = '#/login'; return; }
+    if (!isPaid()) { showUpgradeModal(); return; }
+
     if (selectedNodeEl) selectedNodeEl.classList.remove('selected');
     selectedNodeEl = nodeEl;
     nodeEl.classList.add('selected');
@@ -257,6 +261,37 @@ function renderPath(steps, completedIds, user, pathContainer, detailContainer) {
   });
 
   pathContainer.appendChild(pathEl);
+}
+
+function showUpgradeModal() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal" style="max-width: 420px;">
+      <button class="modal-close" aria-label="Close">×</button>
+      <div class="modal-accent" style="background: #1B4332;"></div>
+      <div class="modal-body">
+        <h2 class="modal-title">Paid Feature</h2>
+        <p class="modal-section-text" style="margin-top: 0.75rem; color: #6B7280;">
+          The Learning Roadmap is available to paid subscribers. Upgrade to track your progress through Islamic knowledge.
+        </p>
+        <div style="margin-top: 1.5rem;">
+          <a href="#/account" class="upgrade-link-btn">Upgrade Now</a>
+        </div>
+      </div>
+    </div>
+  `;
+  const close = () => {
+    document.removeEventListener('keydown', onKeyDown);
+    document.body.style.overflow = '';
+    overlay.remove();
+  };
+  overlay.querySelector('.modal-close').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  const onKeyDown = e => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', onKeyDown);
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
 }
 
 function esc(str) {

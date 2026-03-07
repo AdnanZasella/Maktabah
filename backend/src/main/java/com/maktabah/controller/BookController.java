@@ -6,9 +6,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/books")
@@ -28,7 +30,11 @@ public class BookController {
     }
 
     @GetMapping("/{id}/download")
-    public ResponseEntity<Resource> downloadBook(@PathVariable Long id) {
+    public ResponseEntity<?> downloadBook(@PathVariable Long id, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401)
+                    .body(Map.of("message", "Authentication required"));
+        }
         Resource resource = bookService.getBookFile(id);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
