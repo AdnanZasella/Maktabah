@@ -169,11 +169,11 @@ Returns all available fiqh category names. Public — no login required.
 
 ---
 
-## Free User Endpoints — Valid JWT cookie required
+## Authenticated User Endpoints — Valid JWT cookie required
 
 ### GET /api/roadmap?level={level}
 ### GET /api/roadmap?fieldId={id}&level={level}
-Returns roadmap steps ordered by `step_order`. Requires login — any subscription.
+Returns roadmap steps ordered by `step_order`. Requires login — paid version.
 
 **Query params**
 - `level` — required: `beginner`, `intermediate`, or `advanced`
@@ -432,3 +432,14 @@ Long userId = Long.parseLong(authentication.getName());
 ```
 
 Never use any other method to get the current user in a controller.
+
+
+
+⚠ TODO — Step 19: Add scholar endpoints section here before writing any code.
+Scholar endpoints needed:
+- GET /api/scholar/masail — list all masail (verified and unverified) for the scholar to manage
+- POST /api/scholar/masail — add a new masalah with all four madhab opinions
+- PUT /api/scholar/masail/{id} — edit a masalah or its opinions
+- DELETE /api/scholar/masail/{id} — remove a masalah
+- PUT /api/scholar/masail/{id}/verify — set verified=true (only if all four opinions exist)
+  All endpoints require valid JWT + role = 'scholar'. Scholars cannot touch books, users, or roadmap.

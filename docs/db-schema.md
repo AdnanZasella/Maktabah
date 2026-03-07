@@ -114,6 +114,10 @@ Four rows per masalah — one per madhab.
 
 ### users
 
+⚠ TODO — Step 19: Update the role CHECK constraint to include 'scholar':
+CHECK (role IN ('user','scholar','admin'))
+Do this before writing any Step 19 code.
+
 | Column | Type | Constraints |
 |---|---|---|
 | id | BIGINT | PRIMARY KEY GENERATED ALWAYS AS IDENTITY |

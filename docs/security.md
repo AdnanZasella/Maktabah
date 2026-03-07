@@ -147,6 +147,14 @@ This applies to the API response and to what the frontend displays.
 
 ### Three Access Levels
 
+⚠ TODO — Step 19: Add scholar tier here before writing any code.
+Scholar (role = 'scholar'):
+- Access to /api/scholar/** endpoints only
+- Can add, edit, delete, and verify masail and madhab opinions
+- Cannot access /api/admin/** or any book, user, or roadmap endpoints
+- Backend rejects with 403 if a scholar hits any non-scholar protected endpoint
+- Role check on BOTH frontend (do not render #/scholar for non-scholars) AND backend
+
 **Public — no authentication required**
 - Browse fields and subfields
 - Browse book listings
@@ -486,3 +494,7 @@ Verify logout correctly inserts `jti` into `token_blacklist`.
 | Let one service call another service | Breaks the architecture, creates hidden coupling |
 | Call a repository from a controller | Bypasses business logic layer |
 | Create admin accounts via a public endpoint | Allows anyone to become admin |
+
+
+
+

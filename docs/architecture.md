@@ -259,6 +259,8 @@ Configured in vite.config.js.
 
 ## What Already Exists vs What Is Left
 
+## This section is a snapshot — always check progress.md for current status.
+
 ### Built and Working (Steps 1–15)
 - All backend layers: models, DTOs, repositories, services, controllers
 - All frontend pages: home, library, roadmap, fiqhtool, login, register, account

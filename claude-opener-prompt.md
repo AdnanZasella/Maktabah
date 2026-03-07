@@ -1,6 +1,6 @@
 Read CLAUDE.md then read docs/progress.md before doing anything else.
 
-We are working on: [Step X — name of step].
+We are working on: [Step 17 — Fiqh Tool API endpoints].
 
 Based on the current step, identify which docs/ files are relevant and read them now.
 

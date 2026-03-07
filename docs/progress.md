@@ -1,8 +1,8 @@
 # Maktabah — Progress Tracker
 
 ## Current Status
-- **Currently Working On:** Step 16 — Masalah and MadhabOpinion models
-- **Last Completed:** Step 15 — Stripe payments and access control (completed + tested 2026-03-05)
+- **Currently Working On:** Step 18 — Fiqh Tool frontend page
+- **Last Completed:** Step 17 — Fiqh Tool API endpoints (completed 2026-03-07)
 
 ---
 
@@ -23,8 +23,8 @@
 - [x] Step 13 — User registration and login
 - [x] Step 14 — Progress tracking
 - [x] Step 15 — Stripe payments and access control
-- [ ] Step 16 — Masalah and MadhabOpinion models
-- [ ] Step 17 — Fiqh Tool API endpoints
+- [x] Step 16 — Masalah and MadhabOpinion models
+- [x] Step 17 — Fiqh Tool API endpoints
 - [ ] Step 18 — Fiqh Tool frontend page
 - [ ] Step 19 — Scholar role: backend (User model role update, ScholarController, scholar-only masail API endpoints)
 - [ ] Step 20 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
@@ -150,8 +150,18 @@ PDF_STORAGE_PATH = C:\Users\adnan\IdeaProjects\Maktabah\pdfs (no trailing slash)
 - Extra features: hero page, field descriptions, book modal, upgrade modal
 - Next: Step 16 — Masalah and MadhabOpinion models
 
+### 2026-03-07 — Steps 16 and 17 completed and tested
+- Masalah and MadhabOpinion models + repositories built
+- MasalahService and MasalahController built — all 4 endpoints working
+- Access control confirmed: categories public, paid-only for search/category/detail, 403 for free, 401 for unauthenticated
+- Unverified masail correctly return 404 — content integrity rule confirmed working
+- Next: Step 18 — Fiqh Tool frontend page
+
 ### 2026-03-07 — Scholar role decision
 - Added scholar role to the project — separate from admin
 - Scholar has their own panel at #/scholar, manages fiqh content only
 - Steps 19 and 20 added to the checklist for scholar backend and frontend
 - CLAUDE.md updated to reflect scholar role and access rules
+- Fix: Update the role CHECK constraint in db-schema.md to include 'scholar'. 
+- Add a scholar section to security.md. 
+- Either add scholar endpoints to api-endpoints.md or create a dedicated section before Step 19 begins.

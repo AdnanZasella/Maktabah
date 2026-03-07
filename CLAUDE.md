@@ -30,16 +30,16 @@ Roles in the database: `user`, `scholar`, `admin`. Scholar and admin accounts ar
 
 ## 2. Stack
 
-| Layer | Technology | Version |
-|---|---|---|
-| Language | Java | 21 |
-| Backend | Spring Boot | 3.5.1 |
-| ORM | Spring Data JPA + Hibernate | (included) |
-| Database | PostgreSQL | 18 |
-| JWT | jjwt by io.jsonwebtoken | 0.12.x |
-| Frontend | HTML, CSS, vanilla JS | ES6+ |
-| Build tool | Vite | 5.x |
-| Payments | Stripe Java SDK | 24.x |
+| Layer | Technology | Version                   |
+|---|---|---------------------------|
+| Language | Java | 21                        |
+| Backend | Spring Boot | 3.5.1                     |
+| ORM | Spring Data JPA + Hibernate | (included)                |
+| Database | PostgreSQL | 18                        |
+| JWT | jjwt by io.jsonwebtoken | 0.12.6                    |
+| Frontend | HTML, CSS, vanilla JS | ES6+                      |
+| Build tool | Vite | 5.x                       |
+| Payments | Stripe Java SDK | 24.x                      |
 | Rate limiting | Bucket4j | 8.x (security phase only) |
 
 Full stack details: `docs/stack.md`
@@ -157,16 +157,18 @@ Full security rules: `docs/security.md`
 
 Read the relevant doc only when the current step requires it.
 
-| File | Read when |
-|---|---|
-| `docs/progress.md` | **Every session — read this first, always** |
-| `docs/stack.md` | Setting up the project or adding dependencies |
-| `docs/architecture.md` | Any backend layer work |
-| `docs/db-schema.md` | Any model or repository step |
-| `docs/api-endpoints.md` | Any controller or service step |
+| File                     | Read when |
+|--------------------------|---|
+| `docs/progress.md`       | **Every session — read this first, always** |
+| `docs/stack.md`          | Setting up the project or adding dependencies |
+| `docs/architecture.md`   | Any backend layer work |
+| `docs/db-schema.md`      | Any model or repository step |
+| `docs/api-endpoints.md`  | Any controller or service step |
 | `docs/frontend-guide.md` | Any frontend step (Steps 6–9, 12, 14, 15, 18) |
-| `docs/security.md` | Step 13 and the security phase |
-| `docs/deployment.md` | Deployment only — never during feature steps |
+| `docs/security.md`       | Step 13 and the security phase |
+| `docs/deployment.md`     | Deployment only — never during feature steps |
+| `docs/design.md`         | Step 21 (frontend redesign) — read before starting, fill in before the session. |
+
 
 ---
 

@@ -71,6 +71,13 @@ public class UserService {
     }
 
     /**
+     * Find a user by ID — returns empty if not found.
+     */
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    /**
      * Convert a User entity to a UserDTO. Never expose password hash.
      */
     public UserDTO toDTO(User user) {
