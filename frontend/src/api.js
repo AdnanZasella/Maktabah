@@ -178,12 +178,21 @@ export async function adminGetUsers() {
   return res.json();
 }
 
-export async function adminUpdateSubscription(userId, status) {
+export async function adminDeleteUser(userId) {
+  const res = await fetch(`${API_BASE}/api/admin/users/${userId}`, {
+    ...OPTS,
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete user');
+  return res.json();
+}
+
+export async function adminUpdateSubscription(userId, subscriptionStatus) {
   const res = await fetch(`${API_BASE}/api/admin/users/${userId}/subscription`, {
     ...OPTS,
     method: 'PUT',
     headers: JSON_HEADERS,
-    body: JSON.stringify({ status }),
+    body: JSON.stringify({ subscriptionStatus }),
   });
   if (!res.ok) throw new Error('Failed to update subscription');
   return res.json();
@@ -196,7 +205,10 @@ export async function adminAddBook(formData) {
     method: 'POST',
     body: formData,
   });
-  if (!res.ok) throw new Error('Failed to add book');
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || 'Failed to add book');
+  }
   return res.json();
 }
 
@@ -217,5 +229,57 @@ export async function adminVerifyMasalah(masalahId) {
     method: 'PUT',
   });
   if (!res.ok) throw new Error('Failed to verify masalah');
+  return res.json();
+}
+
+export async function adminGetBooks() {
+  const res = await fetch(`${API_BASE}/api/admin/books`, OPTS);
+  if (!res.ok) throw new Error('Failed to fetch books');
+  return res.json();
+}
+
+export async function adminUpdateBook(bookId, bookData) {
+  const res = await fetch(`${API_BASE}/api/admin/books/${bookId}`, {
+    ...OPTS,
+    method: 'PUT',
+    headers: JSON_HEADERS,
+    body: JSON.stringify(bookData),
+  });
+  if (!res.ok) throw new Error('Failed to update book');
+  return res.json();
+}
+
+export async function adminDeleteBook(bookId) {
+  const res = await fetch(`${API_BASE}/api/admin/books/${bookId}`, {
+    ...OPTS,
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete book');
+  return res.json();
+}
+
+export async function adminGetAllMasail() {
+  const res = await fetch(`${API_BASE}/api/admin/masail`, OPTS);
+  if (!res.ok) throw new Error('Failed to fetch masail');
+  return res.json();
+}
+
+export async function adminDeleteMasalah(masalahId) {
+  const res = await fetch(`${API_BASE}/api/admin/masail/${masalahId}`, {
+    ...OPTS,
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete masalah');
+  return res.json();
+}
+
+export async function adminUpdateMasalah(masalahId, data) {
+  const res = await fetch(`${API_BASE}/api/admin/masail/${masalahId}`, {
+    ...OPTS,
+    method: 'PUT',
+    headers: JSON_HEADERS,
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Failed to update masalah');
   return res.json();
 }

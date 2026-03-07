@@ -1,8 +1,8 @@
 # Maktabah — Progress Tracker
 
 ## Current Status
-- **Currently Working On:** Step 18 — Fiqh Tool frontend page
-- **Last Completed:** Step 17 — Fiqh Tool API endpoints (completed 2026-03-07)
+- **Currently Working On:** Step 20 — Scholar role backend
+- **Last Completed:** Step 19 — Admin panel (completed 2026-03-07)
 
 ---
 
@@ -25,10 +25,11 @@
 - [x] Step 15 — Stripe payments and access control
 - [x] Step 16 — Masalah and MadhabOpinion models
 - [x] Step 17 — Fiqh Tool API endpoints
-- [ ] Step 18 — Fiqh Tool frontend page
-- [ ] Step 19 — Scholar role: backend (User model role update, ScholarController, scholar-only masail API endpoints)
-- [ ] Step 20 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
-- [ ] Step 21 — Frontend redesign (page by page, reference screenshot provided per session)
+- [x] Step 18 — The Fiqh Tool frontend page
+- [x] Step 19 — Admin panel: backend (AdminController — users, books, roadmap, masail endpoints) + frontend (admin.js, #/admin route in main.js)
+- [ ] Step 20 — Scholar role: backend (User model role update, ScholarController, scholar-only masail API endpoints)
+- [ ] Step 21 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
+- [ ] Step 22 — Frontend redesign (page by page, reference screenshot provided per session)
 
 ---
 
@@ -149,6 +150,29 @@ PDF_STORAGE_PATH = C:\Users\adnan\IdeaProjects\Maktabah\pdfs (no trailing slash)
 - Stripe payments fully wired including webhook
 - Extra features: hero page, field descriptions, book modal, upgrade modal
 - Next: Step 16 — Masalah and MadhabOpinion models
+
+### 2026-03-07 — Step 19 completed + admin UI polish
+- AdminService, AdminController: users (list, update subscription, delete), books (list, add with PDF magic bytes check, edit, delete), masail (list all incl. unverified, add, edit, verify, delete)
+- admin.js: three-tab panel (Users, Books, Masail) with full CRUD
+- main.js: /admin route with non-admin → 404 guard
+- navbar.js: Admin link shown only to admin users
+- api.js: added all admin functions, fixed adminUpdateSubscription body key
+- application.properties: multipart file limit raised to 50MB
+- Extra: added delete for users and masail (not in original spec but consistent with books)
+- All tests passed
+- Admin UI polish (same session):
+  - Books table: shows field name (e.g. "Aqeedah → Rububiyyah") instead of raw field ID
+  - Books table: filter by sort (ID / Title A-Z / Z-A), level, and subfield
+  - Books tab: Add Book form hidden by default behind description + "Add Book" button
+  - Masail tab: Add Masalah form hidden by default behind description + "Add Masalah" button
+  - Masail table: filter by sort (ID / Title A-Z / Z-A), category, and verified status
+- Next: Step 20 — Scholar role backend
+
+### 2026-03-07 — Step 18 completed
+- fiqhtool.js: full search + category + masalah list + detail view with madhab cards
+- madhabcard.js: proper component with colour coding (Hanafi=green, Maliki=yellow, Shafi'i=blue, Hanbali=red)
+- style.css: masalah list, detail view, madhab grid styles added
+- Next: Step 19 — Scholar role backend
 
 ### 2026-03-07 — Steps 16 and 17 completed and tested
 - Masalah and MadhabOpinion models + repositories built

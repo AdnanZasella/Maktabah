@@ -1,6 +1,6 @@
 Read CLAUDE.md then read docs/progress.md before doing anything else.
 
-We are working on: [Step 17 — Fiqh Tool API endpoints].
+We are working on: [Step 20 —  Scholar role backend. Have a good rest].
 
 Based on the current step, identify which docs/ files are relevant and read them now.
 

@@ -21,6 +21,10 @@ export function renderNavbar(activeRoute, user) {
     })
     .join('');
 
+  const adminLink = (user && user.role === 'admin')
+    ? `<a href="#/admin" class="nav-link${activeRoute === '/admin' ? ' active' : ''}">Admin</a>`
+    : '';
+
   const authLink = user
     ? `<a href="#/account" class="nav-link${activeRoute === '/account' ? ' active' : ''}">Account</a>`
     : `<a href="#/login"   class="nav-link nav-link-cta${activeRoute === '/login' ? ' active' : ''}">Login</a>`;
@@ -35,6 +39,7 @@ export function renderNavbar(activeRoute, user) {
         ${navLinks}
       </div>
       <div class="navbar-auth">
+        ${adminLink}
         ${authLink}
       </div>
     </div>

@@ -164,10 +164,10 @@ Read the relevant doc only when the current step requires it.
 | `docs/architecture.md`   | Any backend layer work |
 | `docs/db-schema.md`      | Any model or repository step |
 | `docs/api-endpoints.md`  | Any controller or service step |
-| `docs/frontend-guide.md` | Any frontend step (Steps 6–9, 12, 14, 15, 18) |
+| `docs/frontend-guide.md` | Any frontend step (Steps 6–9, 12, 14, 15, 18, 19, 21) |
 | `docs/security.md`       | Step 13 and the security phase |
 | `docs/deployment.md`     | Deployment only — never during feature steps |
-| `docs/design.md`         | Step 21 (frontend redesign) — read before starting, fill in before the session. |
+| `docs/design.md`         | Step 22 (frontend redesign) — read before starting, fill in before the session. |
 
 
 ---
