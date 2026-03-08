@@ -1,8 +1,8 @@
 # Maktabah — Progress Tracker
 
 ## Current Status
-- **Currently Working On:** Step 20 — Scholar role backend
-- **Last Completed:** Step 19 — Admin panel (completed 2026-03-07)
+- **Currently Working On:** Step 22 — Frontend redesign
+- **Last Completed:** Step 21 — Scholar panel frontend (completed 2026-03-08)
 
 ---
 
@@ -27,8 +27,8 @@
 - [x] Step 17 — Fiqh Tool API endpoints
 - [x] Step 18 — The Fiqh Tool frontend page
 - [x] Step 19 — Admin panel: backend (AdminController — users, books, roadmap, masail endpoints) + frontend (admin.js, #/admin route in main.js)
-- [ ] Step 20 — Scholar role: backend (User model role update, ScholarController, scholar-only masail API endpoints)
-- [ ] Step 21 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
+- [x] Step 20 — Scholar role: backend (User model role update, ScholarController, scholar-only masail API endpoints)
+- [x] Step 21 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
 - [ ] Step 22 — Frontend redesign (page by page, reference screenshot provided per session)
 
 ---
@@ -107,11 +107,15 @@
 - Cookie name: `jwt`
 - clearUserCache() must be called after login/logout so auth.js re-fetches from /api/auth/me
 - 
-### [date] — Step 21 started — Frontend redesign
-- Reference sites:
-- Design file: docs/design.md (filled in before session)
-- Pages completed this session:
-- Next page:
+### 2026-03-08 — Step 21 completed
+- scholar.js: full masail CRUD panel (list with sort/filter, add, edit, delete, verify)
+- main.js: /scholar route added, non-scholar sees 404 (same guard pattern as /admin)
+- api.js: 5 scholar API functions added (scholarGetAllMasail, scholarAddMasalah, scholarUpdateMasalah, scholarDeleteMasalah, scholarVerifyMasalah)
+- navbar.js: Scholar link shown only when user.role === 'scholar'
+- auth.js: isScholar() helper added
+- Unverified rows visually distinct in table (admin-row-unverified class)
+- Verify button shows error from backend if not all 4 opinions present
+- Next: Step 22 — Frontend redesign (fill in docs/design.md with reference screenshot before starting)
 
 ### Extra Features Added (outside steps)
 - Hero landing page
@@ -150,6 +154,13 @@ PDF_STORAGE_PATH = C:\Users\adnan\IdeaProjects\Maktabah\pdfs (no trailing slash)
 - Stripe payments fully wired including webhook
 - Extra features: hero page, field descriptions, book modal, upgrade modal
 - Next: Step 16 — Masalah and MadhabOpinion models
+
+### 2026-03-08 — Step 20 completed
+- ScholarService.java: getAllMasail(), addMasalah(), updateMasalah(), deleteMasalah(), verifyMasalah()
+- ScholarController.java: 5 endpoints at /api/scholar/masail**, isScholar() role check via DB lookup
+- No SecurityConfig change needed — anyRequest().authenticated() already covers /api/scholar/**
+- DB prerequisite: ALTER TABLE users DROP CONSTRAINT users_role_check; ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('user','scholar','admin'));
+- Next: Step 21 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
 
 ### 2026-03-07 — Step 19 completed + admin UI polish
 - AdminService, AdminController: users (list, update subscription, delete), books (list, add with PDF magic bytes check, edit, delete), masail (list all incl. unverified, add, edit, verify, delete)

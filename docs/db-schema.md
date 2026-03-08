@@ -114,16 +114,12 @@ Four rows per masalah — one per madhab.
 
 ### users
 
-⚠ TODO — Step 19: Update the role CHECK constraint to include 'scholar':
-CHECK (role IN ('user','scholar','admin'))
-Do this before writing any Step 19 code.
-
 | Column | Type | Constraints |
 |---|---|---|
 | id | BIGINT | PRIMARY KEY GENERATED ALWAYS AS IDENTITY |
 | email | VARCHAR(255) | UNIQUE NOT NULL |
 | password_hash | VARCHAR(255) | NOT NULL |
-| role | VARCHAR(50) | NOT NULL DEFAULT 'user' CHECK (role IN ('user','admin')) |
+| role | VARCHAR(50) | NOT NULL DEFAULT 'user' CHECK (role IN ('user','scholar','admin')) |
 | subscription_status | VARCHAR(50) | NOT NULL DEFAULT 'free' CHECK (subscription_status IN ('free','paid')) |
 | stripe_customer_id | VARCHAR(255) | NULLABLE |
 | stripe_subscription_id | VARCHAR(255) | NULLABLE |

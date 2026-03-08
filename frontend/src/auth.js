@@ -35,3 +35,7 @@ export function isPaid() {
 export function isAdmin() {
   return currentUser?.role === 'admin';
 }
+
+export function isScholar() {
+  return currentUser?.role === 'scholar';
+}

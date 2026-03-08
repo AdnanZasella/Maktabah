@@ -248,6 +248,7 @@ All functions use `credentials: 'include'` so cookies are sent automatically.
 #/register  → register.js
 #/account   → account.js
 #/admin     → admin panel (only if isAdmin())
+#/scholar   → scholar panel (only if isScholar())
 ```
 
 ### Vite Proxy (development only)

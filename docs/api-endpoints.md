@@ -435,11 +435,44 @@ Never use any other method to get the current user in a controller.
 
 
 
-⚠ TODO — Step 19: Add scholar endpoints section here before writing any code.
-Scholar endpoints needed:
-- GET /api/scholar/masail — list all masail (verified and unverified) for the scholar to manage
-- POST /api/scholar/masail — add a new masalah with all four madhab opinions
-- PUT /api/scholar/masail/{id} — edit a masalah or its opinions
-- DELETE /api/scholar/masail/{id} — remove a masalah
-- PUT /api/scholar/masail/{id}/verify — set verified=true (only if all four opinions exist)
-  All endpoints require valid JWT + role = 'scholar'. Scholars cannot touch books, users, or roadmap.
+## Scholar Endpoints — Valid JWT + role = 'scholar'
+
+Role check happens on both frontend (do not render) AND backend (reject request). Never rely on frontend alone.
+Scholars can only manage masail. They cannot touch books, users, or roadmap.
+
+### GET /api/scholar/masail
+Returns all masail including unverified — for the scholar to manage.
+
+**Response 200** — array of MasalahDTO (same structure as admin masail list, includes `verified` field)
+
+---
+
+### POST /api/scholar/masail
+Adds a new masalah with all four madhab opinions. Created with `verified = false` by default.
+
+**Request body** — same structure as `POST /api/admin/masail`
+
+**Response 201**
+
+---
+
+### PUT /api/scholar/masail/{id}
+Edits a masalah and replaces all its madhab opinions.
+
+**Response 200**
+
+---
+
+### DELETE /api/scholar/masail/{id}
+Removes a masalah and all its opinions.
+
+**Response 200**
+
+---
+
+### PUT /api/scholar/masail/{id}/verify
+Sets `verified = true`. The scholar does this themselves after reviewing the content.
+Cannot be called if any of the four madhab opinions are missing.
+
+**Response 200**
+**Response 400** — not all four opinions exist

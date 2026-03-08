@@ -25,6 +25,10 @@ export function renderNavbar(activeRoute, user) {
     ? `<a href="#/admin" class="nav-link${activeRoute === '/admin' ? ' active' : ''}">Admin</a>`
     : '';
 
+  const scholarLink = (user && user.role === 'scholar')
+    ? `<a href="#/scholar" class="nav-link${activeRoute === '/scholar' ? ' active' : ''}">Scholar</a>`
+    : '';
+
   const authLink = user
     ? `<a href="#/account" class="nav-link${activeRoute === '/account' ? ' active' : ''}">Account</a>`
     : `<a href="#/login"   class="nav-link nav-link-cta${activeRoute === '/login' ? ' active' : ''}">Login</a>`;
@@ -40,6 +44,7 @@ export function renderNavbar(activeRoute, user) {
       </div>
       <div class="navbar-auth">
         ${adminLink}
+        ${scholarLink}
         ${authLink}
       </div>
     </div>

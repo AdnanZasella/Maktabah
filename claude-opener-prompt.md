@@ -1,6 +1,6 @@
 Read CLAUDE.md then read docs/progress.md before doing anything else.
 
-We are working on: [Step 20 —  Scholar role backend. Have a good rest].
+We are working on: [Step 22 —  Frontend redesign (page by page, reference screenshot provided per session].
 
 Based on the current step, identify which docs/ files are relevant and read them now.
 
@@ -8,6 +8,6 @@ Before planning, confirm in one sentence: what step we are on, what it builds, a
 
 Then give me your plan — what files you will create or modify and what each one will do and contain.
 
-Only build what Step X requires — do not add anything that belongs to a later step.
+Only build what Step 22 requires — do not add anything that belongs to a later step.
 
 Wait for my approval before building anything.

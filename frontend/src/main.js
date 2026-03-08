@@ -14,6 +14,7 @@ const routes = {
   '/register': () => import('./pages/register.js').then(m => m.renderRegister),
   '/account':  () => import('./pages/account.js').then(m => m.renderAccount),
   '/admin':    () => import('./pages/admin.js').then(m => m.renderAdmin),
+  '/scholar':  () => import('./pages/scholar.js').then(m => m.renderScholar),
 };
 
 function getRoute() {
@@ -42,6 +43,17 @@ async function navigate() {
   }
   // /admin — non-admin users see 404 (not a redirect)
   if (route === '/admin' && (!user || user.role !== 'admin')) {
+    app.innerHTML = '';
+    const navbar = renderNavbar(route, user);
+    app.appendChild(navbar);
+    const pageContainer = document.createElement('main');
+    pageContainer.className = 'page-content';
+    pageContainer.innerHTML = `<div class="error-page"><h2>Page not found</h2><a href="#/library">Go to Library</a></div>`;
+    app.appendChild(pageContainer);
+    return;
+  }
+  // /scholar — non-scholar users see 404 (not a redirect)
+  if (route === '/scholar' && (!user || user.role !== 'scholar')) {
     app.innerHTML = '';
     const navbar = renderNavbar(route, user);
     app.appendChild(navbar);

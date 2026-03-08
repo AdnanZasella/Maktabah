@@ -283,3 +283,54 @@ export async function adminUpdateMasalah(masalahId, data) {
   if (!res.ok) throw new Error('Failed to update masalah');
   return res.json();
 }
+
+// ── Scholar ───────────────────────────────────────────────────────────────────
+
+export async function scholarGetAllMasail() {
+  const res = await fetch(`${API_BASE}/api/scholar/masail`, OPTS);
+  if (!res.ok) throw new Error('Failed to fetch masail');
+  return res.json();
+}
+
+export async function scholarAddMasalah(data) {
+  const res = await fetch(`${API_BASE}/api/scholar/masail`, {
+    ...OPTS,
+    method: 'POST',
+    headers: JSON_HEADERS,
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Failed to add masalah');
+  return res.json();
+}
+
+export async function scholarUpdateMasalah(masalahId, data) {
+  const res = await fetch(`${API_BASE}/api/scholar/masail/${masalahId}`, {
+    ...OPTS,
+    method: 'PUT',
+    headers: JSON_HEADERS,
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Failed to update masalah');
+  return res.json();
+}
+
+export async function scholarDeleteMasalah(masalahId) {
+  const res = await fetch(`${API_BASE}/api/scholar/masail/${masalahId}`, {
+    ...OPTS,
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete masalah');
+  return res.json();
+}
+
+export async function scholarVerifyMasalah(masalahId) {
+  const res = await fetch(`${API_BASE}/api/scholar/masail/${masalahId}/verify`, {
+    ...OPTS,
+    method: 'PUT',
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || 'Failed to verify masalah');
+  }
+  return res.json();
+}
