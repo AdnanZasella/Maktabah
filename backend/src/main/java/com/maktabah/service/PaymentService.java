@@ -34,6 +34,9 @@ public class PaymentService {
     @Value("${stripe.price.id}")
     private String stripePriceId;
 
+    @Value("${stripe.yearly.price.id}")
+    private String stripeYearlyPriceId;
+
     @Value("${app.base.url}")
     private String appBaseUrl;
 
@@ -50,9 +53,11 @@ public class PaymentService {
      * Creates a Stripe checkout session in subscription mode for the given user.
      * Returns the session URL to redirect the user to.
      */
-    public String createCheckoutSession(Long userId) {
+    public String createCheckoutSession(Long userId, String plan) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+        String priceId = "yearly".equals(plan) ? stripeYearlyPriceId : stripePriceId;
 
         try {
             SessionCreateParams params = SessionCreateParams.builder()
@@ -62,7 +67,7 @@ public class PaymentService {
                     .setCancelUrl(appBaseUrl + "/#/account?payment=cancelled")
                     .addLineItem(
                             SessionCreateParams.LineItem.builder()
-                                    .setPrice(stripePriceId)
+                                    .setPrice(priceId)
                                     .setQuantity(1L)
                                     .build()
                     )

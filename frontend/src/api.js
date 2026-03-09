@@ -137,8 +137,13 @@ export async function resetPassword(token, newPassword) {
 
 // ── Payments ──────────────────────────────────────────────────────────
 
-export async function createCheckout() {
-  const res = await fetch(`${API_BASE}/api/payment/create-checkout`, { ...OPTS, method: 'POST' });
+export async function createCheckout(plan = 'monthly') {
+  const res = await fetch(`${API_BASE}/api/payment/create-checkout`, {
+    ...OPTS,
+    method: 'POST',
+    headers: JSON_HEADERS,
+    body: JSON.stringify({ plan }),
+  });
   if (!res.ok) throw new Error('Failed to create checkout session');
   const data = await res.json();
   return data.url;

@@ -28,10 +28,13 @@ public class PaymentController {
      * Requires a valid JWT cookie. Returns the Stripe checkout URL.
      */
     @PostMapping("/create-checkout")
-    public ResponseEntity<?> createCheckout(Authentication authentication) {
+    public ResponseEntity<?> createCheckout(
+            Authentication authentication,
+            @RequestBody(required = false) Map<String, String> body) {
         try {
             Long userId = Long.parseLong(authentication.getName());
-            String url = paymentService.createCheckoutSession(userId);
+            String plan = (body != null) ? body.getOrDefault("plan", "monthly") : "monthly";
+            String url = paymentService.createCheckoutSession(userId, plan);
             return ResponseEntity.ok(Map.of("url", url));
         } catch (Exception e) {
             log.error("Failed to create checkout session: {}", e.getMessage());

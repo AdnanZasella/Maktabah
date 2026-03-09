@@ -1,5 +1,5 @@
 /**
- * Top navigation bar.
+ * Top navigation bar — centered logo, links split left/right, pill CTA.
  * @param {string} activeRoute - Current route, e.g. '/library'
  * @param {object|null} user - Current user object or null
  * @returns {HTMLElement}
@@ -8,13 +8,13 @@ export function renderNavbar(activeRoute, user) {
   const nav = document.createElement('nav');
   nav.className = 'navbar';
 
-  const links = [
+  const leftLinks = [
     { href: '#/library',  label: 'Library',   route: '/library'  },
     { href: '#/roadmap',  label: 'Roadmap',   route: '/roadmap'  },
     { href: '#/fiqhtool', label: 'Fiqh Tool', route: '/fiqhtool' },
   ];
 
-  const navLinks = links
+  const leftLinksHTML = leftLinks
     .map(({ href, label, route }) => {
       const isActive = activeRoute === route;
       return `<a href="${href}" class="nav-link${isActive ? ' active' : ''}">${label}</a>`;
@@ -30,19 +30,19 @@ export function renderNavbar(activeRoute, user) {
     : '';
 
   const authLink = user
-    ? `<a href="#/account" class="nav-link${activeRoute === '/account' ? ' active' : ''}">Account</a>`
-    : `<a href="#/login"   class="nav-link nav-link-cta${activeRoute === '/login' ? ' active' : ''}">Login</a>`;
+    ? `<a href="#/account" class="nav-link-cta${activeRoute === '/account' ? ' active' : ''}">Account</a>`
+    : `<a href="#/login" class="nav-link-cta${activeRoute === '/login' ? ' active' : ''}">Login →</a>`;
 
   nav.innerHTML = `
     <div class="navbar-inner">
-      <a href="#/" class="navbar-logo">
-        <span class="logo-text">Maktabah</span>
-        <span class="logo-arabic">مكتبة</span>
-      </a>
-      <div class="navbar-links">
-        ${navLinks}
+      <div class="navbar-left">
+        ${leftLinksHTML}
       </div>
-      <div class="navbar-auth">
+      <a href="#/" class="navbar-logo">
+        <span class="logo-arabic">مكتبة</span>
+        <span class="logo-text">Maktabah</span>
+      </a>
+      <div class="navbar-right">
         ${adminLink}
         ${scholarLink}
         ${authLink}
