@@ -11,3 +11,5 @@ Then give me your plan — what files you will create or modify and what each on
 Only build what Step 22 requires — do not add anything that belongs to a later step.
 
 Wait for my approval before building anything.
+
+Summarize what we will do in this step before we move on.
