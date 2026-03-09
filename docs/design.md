@@ -407,10 +407,10 @@ Complete and confirm each before moving on.
 
 1. ~~`home.js` + `navbar.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
 2. ~~`account.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
-3. `library.js` ← **NEXT**
-4. `roadmap.js`
-5. `fiqhtool.js`
-6. `login.js` + `register.js` — do together
+3. ~~`library.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
+4. ~~`roadmap.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
+5. ~~`fiqhtool.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
+6. `login.js` + `register.js` — do together ← **NEXT**
 7. `scholar.js`
 
 ---
@@ -466,6 +466,23 @@ These values were tuned and approved. Use them exactly.
 | Gold CTA button | `linear-gradient(135deg, var(--gold-primary), #b07a28)`, gold border |
 | Ghost button | transparent, `var(--border-glass)` border, `var(--text-secondary)` text |
 | Pricing | Monthly 129kr, Yearly 1160kr (25% off). STRIPE_YEARLY_PRICE_ID env var required |
+| "Begin Your Journey" btn | Links to `#/account` (NOT `#/register`) — user must be logged in to subscribe |
+| Library / Roadmap / Fiqh hero | Shared `library-hero` + `library-hero-inner` pattern — eyebrow + Playfair title + subtitle. Margin `-2.5rem -2rem 2.5rem` pulls it edge-to-edge above `.page-content` padding |
+| Field card accent bar | `height: 3px`, `opacity: 0.7` — thin colored line at top. Colors: Aqeedah=`#6aab7e`, Fiqh=`#6495ed`, Hadith=`#e0b060`, Seerah=`#b47878` |
+| Field/Book card hover | `background: #28402f`, `border-color: var(--green-primary)` |
+| Level badges | Beginner: green tint + `#7ec896`. Intermediate: gold tint + `var(--gold-light)`. Advanced: red tint + `#e08080`. All `border-radius: 6px` |
+| Download btn | Green gradient (`var(--green-primary)` → `#3d6b4a`), green border, green glow shadow |
+| Upgrade btn | Gold gradient, gold border |
+| Roadmap left panel | `#223328` dark glass card, `position: sticky`, `top: calc(72px + 1.5rem)` |
+| Field selector btns | `var(--bg-elevated)` base, `var(--border-glass)` border. Active: `var(--green-muted)` bg + field `accent` as border/box-shadow/color (inline) |
+| Path node circles | Available: green-muted→green-primary gradient + border. Completed: green-primary→green-light + border. Locked: `var(--bg-elevated)` + `var(--border-glass)` |
+| Path connectors | `var(--border-glass)` inactive, `var(--green-primary)` completed |
+| Step detail card | `var(--bg-elevated)` bg, `var(--border-subtle)` border. Completed: `rgba(74,124,89,0.08)` bg |
+| Step unlock btn | Green gradient + `var(--green-light)` border (same as download-btn) |
+| Category pills | Same pill style as filter-btn: transparent + `var(--border-glass)`. Active: `var(--green-muted)` + `var(--green-primary)` border |
+| Search input | `var(--bg-elevated)` bg, `var(--border-glass)` border, `border-radius: 12px`, left padding 3rem for icon. Parent `.fiqh-search-bar` has `::before` search icon |
+| Madhab cards | `#223328` bg, per-madhab border color, `border-radius: 12px`, `::after` 3px gradient bottom bar. Hanafi=blue `#6495ed`, Maliki=green `#4a7c59`, Shafi'i=gold `#c9933a`, Hanbali=rose `#b47878` |
+| Upgrade modal | Class `upgrade-modal`, accent bar class `upgrade-modal-accent` (green→gold gradient), eyebrow label + `btn-gold-full` button — no inline styles |
 
 ---
 

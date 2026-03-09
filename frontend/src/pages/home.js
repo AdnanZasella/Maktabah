@@ -178,7 +178,7 @@ export async function renderHome(container) {
               <li>Progress tracking</li>
               <li>Future features included</li>
             </ul>
-            <a href="#/register" class="btn-gold-full">Begin Your Journey →</a>
+            <a href="#/account" class="btn-gold-full">Begin Your Journey →</a>
           </div>
         </div>
 

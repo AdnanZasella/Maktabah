@@ -13,10 +13,12 @@ import { createBookCard } from '../components/bookcard.js';
  */
 export async function renderLibrary(container, user) {
   container.innerHTML = `
-    <a href="#/" class="back-home-link">← Home</a>
-    <div class="library-header">
-      <h1 class="library-title">Islamic Library</h1>
-      <p class="library-subtitle">Browse our collection of verified Islamic books</p>
+    <div class="library-hero">
+      <div class="library-hero-inner">
+        <span class="eyebrow-label">◆ Islamic Library</span>
+        <h1 class="library-title">Curated Books for<br><span class="accent-green">Serious Students</span></h1>
+        <p class="library-subtitle">Browse verified Islamic books organised by field, subfield, and level.</p>
+      </div>
     </div>
     <div class="level-filter" id="level-filter">
       <button class="filter-btn active" data-level="all">All Levels</button>

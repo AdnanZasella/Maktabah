@@ -29,7 +29,7 @@
 - [x] Step 19 — Admin panel: backend (AdminController — users, books, roadmap, masail endpoints) + frontend (admin.js, #/admin route in main.js)
 - [x] Step 20 — Scholar role: backend (User model role update, ScholarController, scholar-only masail API endpoints)
 - [x] Step 21 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
-- [ ] Step 22 — Frontend redesign (in progress — home page + navbar + account page done, confirmed by user)
+- [ ] Step 22 — Frontend redesign (in progress — home ✓, navbar ✓, account ✓, library ✓, roadmap ✓, fiqhtool ✓ — login+register and scholar.js remain)
 
 ---
 
@@ -107,17 +107,16 @@
 - Cookie name: `jwt`
 - clearUserCache() must be called after login/logout so auth.js re-fetches from /api/auth/me
 - 
-### 2026-03-09 — Step 22 in progress (home + navbar + account done)
+### 2026-03-09 — Step 22 in progress (home + navbar + account + library + roadmap + fiqhtool done)
 - Full dark design system implemented in style.css (CSS variables, Playfair Display + Inter fonts)
-- Navbar redesigned: centered logo (Arabic مكتبة stacked over MAKTABAH), links split left/right, gold pill CTA
-- Home page redesigned: hero with eyebrow/headline/CTA/announcement strip, stats row, 3 feature glass cards, pricing section with monthly/yearly toggle, footer
-- Account page redesigned: glass info card + pricing section matching home page style (free vs premium cards with toggle)
-- Monthly/yearly pricing added: 129kr/month, 1160kr/year (25% off). Backend: STRIPE_YEARLY_PRICE_ID env var, PaymentService accepts plan param, PaymentController reads plan from request body, api.js sends Content-Type header
-- Background: #192620, surface: #1e2d25, cards: #223328
-- Glass cards: solid dark surface with subtle green border + inset top highlight + drop shadow — no backdrop-filter
-- Nav links: gold color (var(--gold-light)), pill CTA: gold border + gold-muted bg
-- Pages confirmed by user: home ✓, navbar ✓, account ✓
-- Next: library.js → roadmap.js → fiqhtool.js → login.js + register.js → scholar.js
+- Navbar: centered logo, gold nav links, gold pill CTA
+- Home: hero, stats, 3 feature cards, pricing toggle (129kr/1160kr), footer. "Begin Your Journey" button fixed → goes to #/account (not #/register)
+- Account: glass info card + pricing section with monthly/yearly toggle
+- Library: library-hero section (eyebrow + Playfair title), dark glass field/book cards, green gradient download button, dark modal. fieldcard.js accent colors updated to dark palette.
+- Roadmap: library-hero header, dark glass left panel, field buttons use accent as border/glow when active (removed old inactiveBg/activeBtn/activeText keys), dark node circles with green gradients, upgrade modal uses btn-gold-full
+- Fiqh Tool: library-hero header (gold accent on "Madhab"), dark search input with search icon, glass category pills, dark masalah list, madhab cards redesigned with per-madhab colored borders + 3px bottom gradient bar via ::after
+- Pages confirmed by user: home ✓, navbar ✓, account ✓, library ✓, roadmap ✓, fiqhtool ✓
+- Next: login.js + register.js (do together) → scholar.js
 
 ### 2026-03-08 — Step 21 completed
 - scholar.js: full masail CRUD panel (list with sort/filter, add, edit, delete, verify)
