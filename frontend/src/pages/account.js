@@ -16,8 +16,19 @@ export async function renderAccount(container, user) {
   }
 
   if (paymentStatus === 'success') {
+    // Show a holding state while we wait for the Stripe webhook to update the DB.
+    // The webhook and the redirect race each other — poll until paid or timeout.
+    container.innerHTML = `<div class="account-page" style="padding:4rem 2rem;color:var(--text-secondary);font-size:0.9375rem;">Verifying your payment…</div>`;
     clearUserCache();
     user = await getCurrentUser();
+    if (user && user.subscriptionStatus !== 'paid') {
+      for (let i = 0; i < 6; i++) {
+        await new Promise(r => setTimeout(r, 2000));
+        clearUserCache();
+        user = await getCurrentUser();
+        if (!user || user.subscriptionStatus === 'paid') break;
+      }
+    }
     if (!user) {
       window.location.hash = '#/login';
       return;

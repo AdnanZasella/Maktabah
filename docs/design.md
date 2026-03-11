@@ -410,8 +410,8 @@ Complete and confirm each before moving on.
 3. ~~`library.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
 4. ~~`roadmap.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
 5. ~~`fiqhtool.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
-6. `login.js` + `register.js` — do together ← **NEXT**
-7. `scholar.js`
+6. ~~`login.js` + `register.js`~~ ✅ **DONE — confirmed by user (2026-03-09)**
+7. ~~`admin.js` + `scholar.js`~~ ✅ **DONE — confirmed by user (2026-03-10)**
 
 ---
 

@@ -1,6 +1,6 @@
 Read CLAUDE.md then read docs/progress.md before doing anything else.
 
-We are working on: [Step 22 —  Frontend redesign (page by page, reference screenshot provided per session].
+We are working on: [Step 23 —  Mobile responsiveness pass (all pages)].
 
 Based on the current step, identify which docs/ files are relevant and read them now.
 

@@ -1,8 +1,8 @@
 # Maktabah — Progress Tracker
 
 ## Current Status
-- **Currently Working On:** Step 22 — Frontend redesign
-- **Last Completed:** Step 21 — Scholar panel frontend (completed 2026-03-08)
+- **Currently Working On:** Step 23 — Mobile responsiveness pass
+- **Last Completed:** Step 22 — Frontend redesign + UI polish (completed 2026-03-10)
 
 ---
 
@@ -29,7 +29,8 @@
 - [x] Step 19 — Admin panel: backend (AdminController — users, books, roadmap, masail endpoints) + frontend (admin.js, #/admin route in main.js)
 - [x] Step 20 — Scholar role: backend (User model role update, ScholarController, scholar-only masail API endpoints)
 - [x] Step 21 — Scholar panel frontend (scholar.js, #/scholar route in main.js)
-- [ ] Step 22 — Frontend redesign (in progress — home ✓, navbar ✓, account ✓, library ✓, roadmap ✓, fiqhtool ✓ — login+register and scholar.js remain)
+- [x] Step 22 — Frontend redesign (complete — home ✓, navbar ✓, account ✓, library ✓, roadmap ✓, fiqhtool ✓, login ✓, register ✓, admin ✓, scholar ✓)
+- [ ] Step 23 — Mobile responsiveness pass (all pages)
 
 ---
 
@@ -107,6 +108,16 @@
 - Cookie name: `jwt`
 - clearUserCache() must be called after login/logout so auth.js re-fetches from /api/auth/me
 - 
+### 2026-03-10 — UI polish completed (post Step 22)
+- Hero background image (6000×3376 Islamic bookshelf) with dark overlay + bottom fade
+- Floating panel system: all content sections (features, pricing, page-content, admin) are rounded panels on dark base
+- Panel backgrounds lightened for contrast: #2a3f32 (features/page-content), #304838 (pricing)
+- --bg-base lightened to #1f3029, navbar set to same color as base
+- Stats strip kept full-width, lightened to #2a3f32
+- overflow: clip on .page-content to clip library-hero to rounded corners without breaking sticky
+- Payment webhook race condition fixed: account.js now polls up to 6× (2s apart) when returning from Stripe
+- Next: Mobile responsiveness pass
+
 ### 2026-03-09 — Step 22 in progress (home + navbar + account + library + roadmap + fiqhtool done)
 - Full dark design system implemented in style.css (CSS variables, Playfair Display + Inter fonts)
 - Navbar: centered logo, gold nav links, gold pill CTA
@@ -116,7 +127,7 @@
 - Roadmap: library-hero header, dark glass left panel, field buttons use accent as border/glow when active (removed old inactiveBg/activeBtn/activeText keys), dark node circles with green gradients, upgrade modal uses btn-gold-full
 - Fiqh Tool: library-hero header (gold accent on "Madhab"), dark search input with search icon, glass category pills, dark masalah list, madhab cards redesigned with per-madhab colored borders + 3px bottom gradient bar via ::after
 - Pages confirmed by user: home ✓, navbar ✓, account ✓, library ✓, roadmap ✓, fiqhtool ✓
-- Next: login.js + register.js (do together) → scholar.js
+- Next: admin.js → scholar.js
 
 ### 2026-03-08 — Step 21 completed
 - scholar.js: full masail CRUD panel (list with sort/filter, add, edit, delete, verify)
