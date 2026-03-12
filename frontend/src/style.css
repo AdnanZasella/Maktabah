@@ -334,7 +334,7 @@ button {
 /* ── Content grid ──────────────────────────────────────────────────── */
 .content-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.375rem;
 }
 
@@ -1124,6 +1124,55 @@ button {
   border-color: rgba(201, 147, 58, 0.25);
 }
 
+/* ── Testimonials section ────────────────────────────────────────── */
+.home-testimonials {
+  padding: 2.5rem 1.5rem;
+}
+
+.home-testimonials .home-container {
+  background: #2a3f32;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.28);
+  padding: 4rem 3rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  line-height: 0.85;
+  color: var(--gold-light);
+  margin-bottom: 0.75rem;
+}
+
+.testimonial-text {
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: #c0d4c8;
+  line-height: 1.75;
+  flex: 1;
+}
+
+.testimonial-author {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
 /* ── Pricing section ─────────────────────────────────────────────── */
 .home-pricing {
   padding: 1.5rem 1.5rem 2.5rem;
@@ -1350,6 +1399,29 @@ button {
   margin-top: 2rem;
   font-size: 0.8125rem;
   color: var(--text-secondary);
+}
+
+/* ── CTA Banner ──────────────────────────────────────────────────── */
+.home-cta-banner {
+  background: #263d32;
+  border-top: 1px solid var(--border-glass);
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.cta-banner-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.cta-banner-sub {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.75rem;
 }
 
 /* ── Footer ──────────────────────────────────────────────────────── */
@@ -1860,7 +1932,7 @@ button {
   }
 
   .content-grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 

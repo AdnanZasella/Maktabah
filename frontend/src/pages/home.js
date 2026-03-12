@@ -120,6 +120,36 @@ export async function renderHome(container) {
       </div>
     </section>
 
+    <!-- ── Testimonials ──────────────────────────────────────────── -->
+    <section class="home-testimonials">
+      <div class="home-container">
+        <div class="section-header">
+          <span class="eyebrow-label">◆ Trusted By Students</span>
+          <h2 class="section-title">What Students Are <span class="accent-green">Saying</span></h2>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card glass-card">
+            <div class="testimonial-quote-mark">&ldquo;</div>
+            <p class="testimonial-text">Finally a platform that organises classical texts properly. The learning roadmap alone saved me months of confusion.</p>
+            <div class="testimonial-author">Yusuf A. &mdash; Student of Islamic Sciences</div>
+          </div>
+
+          <div class="testimonial-card glass-card">
+            <div class="testimonial-quote-mark">&ldquo;</div>
+            <p class="testimonial-text">The fiqh comparison tool is unlike anything I&apos;ve found online. Having all four madhab positions in one place with sources is invaluable.</p>
+            <div class="testimonial-author">Fatima R. &mdash; Islamic Studies Graduate</div>
+          </div>
+
+          <div class="testimonial-card glass-card">
+            <div class="testimonial-quote-mark">&ldquo;</div>
+            <p class="testimonial-text">I&apos;ve recommended Maktabah to everyone in my study circle. The library is curated exactly how a serious student needs it.</p>
+            <div class="testimonial-author">Ibrahim K. &mdash; Mosque Teacher</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Pricing ────────────────────────────────────────────────── -->
     <section class="home-pricing">
       <div class="home-container">
@@ -183,6 +213,15 @@ export async function renderHome(container) {
         </div>
 
         <p class="pricing-note">Cancel anytime &nbsp;·&nbsp; No commitment &nbsp;·&nbsp; Secure payment via Stripe</p>
+      </div>
+    </section>
+
+    <!-- ── CTA Banner ────────────────────────────────────────────── -->
+    <section class="home-cta-banner">
+      <div class="home-container">
+        <h2 class="cta-banner-heading">Begin with the free library today</h2>
+        <p class="cta-banner-sub">No card required. Upgrade when you&apos;re ready.</p>
+        <a href="#/library" class="btn-primary-lg">Browse the Library →</a>
       </div>
     </section>
 

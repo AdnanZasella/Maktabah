@@ -4,11 +4,11 @@
 
 const FIELD_COLORS = {
   'Aqeedah': {
-    accent: '#6aab7e',
+    accent: '#e0b060',
     description: 'Islamic creed — tawheed, the names and attributes of Allah, and the foundational beliefs every Muslim must know.',
   },
   'Fiqh': {
-    accent: '#6495ed',
+    accent: '#e0b060',
     description: 'Islamic jurisprudence — rulings on worship, transactions, and daily life across the four madhabs: Hanafi, Maliki, Shafi\'i, and Hanbali.',
   },
   'Hadith': {
@@ -16,12 +16,12 @@ const FIELD_COLORS = {
     description: 'The sayings and actions of the Prophet ﷺ — including the science of hadith evaluation and commentary on the major collections.',
   },
   'Seerah': {
-    accent: '#b47878',
+    accent: '#e0b060',
     description: 'The life of the Prophet ﷺ, the stories of his Companions, and the history of the early Muslim community.',
   },
 };
 
-const DEFAULT_COLORS = { accent: '#8fa898', description: null };
+const DEFAULT_COLORS = { accent: '#e0b060', description: null };
 
 /**
  * Returns color pair for a field name.
