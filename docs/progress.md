@@ -108,6 +108,18 @@
 - Cookie name: `jwt`
 - clearUserCache() must be called after login/logout so auth.js re-fetches from /api/auth/me
 - 
+### 2026-03-12 — Extended UI polish session
+- Navbar: frosted glass effect, nav links white, text-shadow for contrast over hero
+- Hero: flush to navbar (no gap), radial vignette behind headline for text readability
+- Buttons: `.btn-primary-lg` and `.glass-card` hover — lift + emerald glow + active press state
+- Stats strip: glass bg, white borders, vertical cell dividers, brighter labels, more padding
+- Pricing cards: Premium card gold border/glow/bg tint; all body text brightened; free card specific brightness override; toggle unselected text brighter
+- New sections: Testimonials (3 glass cards, matches features panel) + CTA banner above footer
+- Footer quote updated to Quran 39:9
+- Library: 2-column grid, field card fixed height removed (stretch), all accent borders unified to gold
+- Filter tabs (library levels, roadmap levels+fields, fiqhtool categories): larger padding/font, visible unselected, gold active state. Roadmap field active = gold border only (not filled)
+- Next: Mobile responsiveness pass (Step 23)
+
 ### 2026-03-10 — UI polish completed (post Step 22)
 - Hero background image (6000×3376 Islamic bookshelf) with dark overlay + bottom fade
 - Floating panel system: all content sections (features, pricing, page-content, admin) are rounded panels on dark base

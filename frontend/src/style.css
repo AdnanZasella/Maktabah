@@ -274,26 +274,27 @@ button {
 }
 
 .filter-btn {
-  padding: 0.375rem 1rem;
-  border: 1px solid var(--border-glass);
+  padding: 0.5rem 1.375rem;
+  border: 1px solid rgba(74, 124, 89, 0.35);
   border-radius: 100px;
   background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
   font-weight: 500;
   transition: all 0.2s ease;
 }
 
 .filter-btn:hover {
-  border-color: var(--green-primary);
-  color: var(--text-primary);
-  background: var(--green-glow);
+  border-color: var(--gold-primary);
+  color: #f0cc80;
+  background: rgba(201, 147, 58, 0.10);
 }
 
 .filter-btn.active {
-  background: var(--green-muted);
-  border-color: var(--green-primary);
-  color: var(--green-light);
+  background: var(--gold-primary);
+  border-color: var(--gold-light);
+  color: #1a2a20;
+  font-weight: 600;
 }
 
 /* ── Breadcrumb ────────────────────────────────────────────────────── */
@@ -346,8 +347,6 @@ button {
   box-shadow: inset 0 1px 0 rgba(106,171,126,0.09), 0 4px 24px rgba(0,0,0,0.28);
   overflow: hidden;
   cursor: pointer;
-  /* Fixed height — every field and subfield card is identical in size */
-  height: 260px;
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
@@ -1582,29 +1581,31 @@ button {
 }
 
 .field-btn {
-  padding: 0.6875rem 0.875rem;
-  border: 1px solid var(--border-glass);
+  padding: 0.75rem 0.875rem;
+  border: 1px solid rgba(74, 124, 89, 0.35);
   border-radius: 10px;
   background: var(--bg-elevated);
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-size: 0.9375rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
   text-align: center;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 
 .field-btn:hover {
   transform: translateY(-2px);
-  border-color: var(--green-primary);
-  color: var(--text-primary);
+  border-color: var(--gold-primary);
+  color: #f0cc80;
+  background: rgba(201, 147, 58, 0.10);
 }
 
 .field-btn.active {
   transform: translateY(-1px);
-  background: var(--green-muted);
-  /* border-color, box-shadow, color set inline to match field accent */
+  background: rgba(201, 147, 58, 0.10);
+  border-color: var(--gold-light);
+  color: #f0cc80;
 }
 
 /* ── Roadmap path ──────────────────────────────────────────────────── */
@@ -2518,12 +2519,12 @@ button {
 }
 
 .category-btn {
-  padding: 0.4375rem 1rem;
-  border: 1px solid var(--border-glass);
+  padding: 0.5rem 1.375rem;
+  border: 1px solid rgba(74, 124, 89, 0.35);
   border-radius: 100px;
   background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.8125rem;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   font-family: inherit;
@@ -2532,15 +2533,16 @@ button {
 }
 
 .category-btn:hover {
-  border-color: var(--green-primary);
-  color: var(--text-primary);
-  background: var(--green-glow);
+  border-color: var(--gold-primary);
+  color: #f0cc80;
+  background: rgba(201, 147, 58, 0.10);
 }
 
 .category-btn.active {
-  background: var(--green-muted);
-  border-color: var(--green-primary);
-  color: var(--green-light);
+  background: var(--gold-primary);
+  border-color: var(--gold-light);
+  color: #1a2a20;
+  font-weight: 600;
 }
 
 .fiqh-prompt {
