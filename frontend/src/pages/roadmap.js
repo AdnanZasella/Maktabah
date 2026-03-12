@@ -5,10 +5,12 @@ import { isPaid } from '../auth.js';
 
 export async function renderRoadmap(container, user) {
   container.innerHTML = `
-    <a href="#/" class="back-home-link">← Home</a>
-    <div class="library-header">
-      <h1 class="library-title">Learning Roadmap</h1>
-      <p class="library-subtitle">Your path through Islamic knowledge — one book at a time</p>
+    <div class="library-hero">
+      <div class="library-hero-inner">
+        <span class="eyebrow-label">◆ Learning Roadmap</span>
+        <h1 class="library-title">Your Path Through<br><span class="accent-green">Islamic Knowledge</span></h1>
+        <p class="library-subtitle">A structured progression — one book at a time, step by step.</p>
+      </div>
     </div>
 
     <div class="roadmap-layout">
@@ -53,38 +55,27 @@ export async function renderRoadmap(container, user) {
 
   // Build one colored button per field
   fields.forEach(f => {
-    const colors     = getFieldColors(f.name);
-    const inactiveBg = colors.inactiveBg || colors.bg;
-    const activeBg   = colors.activeBtn  || colors.accent;
-    const activeText = colors.activeText || '#111827';
+    const colors = getFieldColors(f.name);
+    const accent = colors.accent;
 
     const btn = document.createElement('button');
     btn.className = 'field-btn';
     btn.textContent = f.name;
-    // Store per-field colours for restore on deactivation
-    btn.dataset.inactiveBg = inactiveBg;
-    btn.dataset.activeBg   = activeBg;
-    btn.dataset.activeText = activeText;
-
-    // Inactive: medium-bright tint, dark text
-    btn.style.background = inactiveBg;
-    btn.style.color      = '#1F2937';
+    btn.dataset.accent = accent;
 
     btn.addEventListener('click', () => {
-      // Restore all buttons to their own inactive state
+      // Restore all buttons to inactive state
       fieldBtnsEl.querySelectorAll('.field-btn').forEach(b => {
         b.classList.remove('active');
-        b.style.background  = b.dataset.inactiveBg;
-        b.style.color       = '#1F2937';
-        b.style.borderColor = 'transparent';
+        b.style.borderColor = '';
         b.style.boxShadow   = '';
+        b.style.color       = '';
       });
-      // Active: vivid bright colour, high-contrast dark text
+      // Active: accent border + glow + accent text
       btn.classList.add('active');
-      btn.style.background  = activeBg;
-      btn.style.color       = activeText;
-      btn.style.borderColor = activeBg;
-      btn.style.boxShadow   = `0 0 0 2px ${activeBg}`;
+      btn.style.borderColor = accent;
+      btn.style.boxShadow   = `0 0 0 2px ${accent}33`;
+      btn.style.color       = accent;
 
       selectedFieldId = f.id;
       if (selectedLevel) loadRoadmap();
@@ -267,16 +258,17 @@ function showUpgradeModal() {
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   overlay.innerHTML = `
-    <div class="modal" style="max-width: 420px;">
+    <div class="modal upgrade-modal">
       <button class="modal-close" aria-label="Close">×</button>
-      <div class="modal-accent" style="background: #1B4332;"></div>
+      <div class="modal-accent upgrade-modal-accent"></div>
       <div class="modal-body">
-        <h2 class="modal-title">Paid Feature</h2>
-        <p class="modal-section-text" style="margin-top: 0.75rem; color: #6B7280;">
+        <span class="eyebrow-label">◆ Premium Feature</span>
+        <h2 class="modal-title" style="margin-top: 0.75rem;">Unlock the Roadmap</h2>
+        <p class="modal-section-text" style="margin-top: 0.625rem;">
           The Learning Roadmap is available to paid subscribers. Upgrade to track your progress through Islamic knowledge.
         </p>
         <div style="margin-top: 1.5rem;">
-          <a href="#/account" class="upgrade-link-btn">Upgrade Now</a>
+          <a href="#/account" class="btn-gold-full">Upgrade Now →</a>
         </div>
       </div>
     </div>

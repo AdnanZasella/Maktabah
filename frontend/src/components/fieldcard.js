@@ -4,36 +4,24 @@
 
 const FIELD_COLORS = {
   'Aqeedah': {
-    accent: '#10B981',
-    bg: '#ECFDF5',
-    // inactive: medium-bright emerald-200 | active: vivid emerald-400
-    inactiveBg: '#A7F3D0', activeBtn: '#34D399', activeText: '#064E3B',
+    accent: '#e0b060',
     description: 'Islamic creed — tawheed, the names and attributes of Allah, and the foundational beliefs every Muslim must know.',
   },
   'Fiqh': {
-    accent: '#3B82F6',
-    bg: '#EFF6FF',
-    // inactive: blue-200 | active: vivid blue-400
-    inactiveBg: '#BFDBFE', activeBtn: '#60A5FA', activeText: '#1E3A8A',
+    accent: '#e0b060',
     description: 'Islamic jurisprudence — rulings on worship, transactions, and daily life across the four madhabs: Hanafi, Maliki, Shafi\'i, and Hanbali.',
   },
   'Hadith': {
-    accent: '#F59E0B',
-    bg: '#FFFBEB',
-    // inactive: amber-200 | active: vivid amber-400
-    inactiveBg: '#FDE68A', activeBtn: '#FBBF24', activeText: '#78350F',
+    accent: '#e0b060',
     description: 'The sayings and actions of the Prophet ﷺ — including the science of hadith evaluation and commentary on the major collections.',
   },
   'Seerah': {
-    accent: '#8B5CF6',
-    bg: '#F5F3FF',
-    // inactive: violet-200 | active: vivid violet-400
-    inactiveBg: '#DDD6FE', activeBtn: '#A78BFA', activeText: '#3B0764',
+    accent: '#e0b060',
     description: 'The life of the Prophet ﷺ, the stories of his Companions, and the history of the early Muslim community.',
   },
 };
 
-const DEFAULT_COLORS = { accent: '#6B7280', bg: '#F9FAFB', inactiveBg: '#E5E7EB', activeBtn: '#9CA3AF', activeText: '#111827', description: null };
+const DEFAULT_COLORS = { accent: '#e0b060', description: null };
 
 /**
  * Returns color pair for a field name.

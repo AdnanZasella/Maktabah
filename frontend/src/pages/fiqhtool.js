@@ -24,11 +24,14 @@ export async function renderFiqhTool(container) {
 
 function renderToolShell(container, categories) {
   container.innerHTML = `
-    <div class="fiqh-tool">
-      <div class="fiqh-header">
-        <h1 class="fiqh-title">Fiqh Comparison Tool</h1>
-        <p class="fiqh-subtitle">Compare madhab positions side by side</p>
+    <div class="library-hero">
+      <div class="library-hero-inner">
+        <span class="eyebrow-label">◆ Fiqh Comparison</span>
+        <h1 class="library-title">All Four <span class="accent-gold">Madhab</span> Positions</h1>
+        <p class="library-subtitle">Compare Hanafi, Maliki, Shafi&apos;i, and Hanbali opinions side by side — with evidence and sources.</p>
       </div>
+    </div>
+    <div class="fiqh-tool">
       <div class="fiqh-search-bar">
         <input
           type="text"
@@ -219,16 +222,17 @@ function showUpgradeModal() {
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   overlay.innerHTML = `
-    <div class="modal" style="max-width: 420px;">
+    <div class="modal upgrade-modal">
       <button class="modal-close" aria-label="Close">×</button>
-      <div class="modal-accent" style="background: #1B4332;"></div>
+      <div class="modal-accent upgrade-modal-accent"></div>
       <div class="modal-body">
-        <h2 class="modal-title">Paid Feature</h2>
-        <p class="modal-section-text" style="margin-top: 0.75rem; color: #6B7280;">
+        <span class="eyebrow-label">◆ Premium Feature</span>
+        <h2 class="modal-title" style="margin-top: 0.75rem;">Unlock Fiqh Comparison</h2>
+        <p class="modal-section-text" style="margin-top: 0.625rem;">
           The Fiqh Comparison Tool is available to paid subscribers. Upgrade to compare all four madhab positions with evidence and sources.
         </p>
         <div style="margin-top: 1.5rem;">
-          <a href="#/account" class="upgrade-link-btn">Upgrade Now</a>
+          <a href="#/account" class="btn-gold-full">Upgrade Now →</a>
         </div>
       </div>
     </div>
