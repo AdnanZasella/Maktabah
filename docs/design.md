@@ -103,7 +103,7 @@ A full-page screenshot has been provided. Study it for **layout structure and co
 
   --text-primary:      #eef2ee;
   --text-secondary:    #8fa898;
-  --text-muted:        #506358;
+  --text-muted:        #506358; 
 
   --border-subtle:     rgba(74, 124, 89, 0.15);
   --border-glass:      rgba(74, 124, 89, 0.25);

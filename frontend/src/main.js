@@ -90,6 +90,7 @@ async function navigate() {
   try {
     const renderFn = await loader();
     await renderFn(pageContainer, user);
+    if (FOOTER_ROUTES.includes(route)) appendFooter(app);
   } catch (err) {
     console.error('Page render error:', err);
     pageContainer.innerHTML = `
@@ -99,6 +100,40 @@ async function navigate() {
       </div>
     `;
   }
+}
+
+const FOOTER_ROUTES = ['/library', '/roadmap', '/fiqhtool', '/account'];
+
+function appendFooter(app) {
+  const footer = document.createElement('footer');
+  footer.className = 'home-footer';
+  footer.innerHTML = `
+    <div class="home-container">
+      <div class="footer-row-1">
+        <a href="#/" class="footer-logo">
+          <span class="footer-logo-arabic">مكتبة</span>
+          <span class="footer-logo-text">Maktabah</span>
+        </a>
+        <nav class="footer-links">
+          <a href="#/library">Library</a>
+          <span class="footer-dot">·</span>
+          <a href="#/roadmap">Roadmap</a>
+          <span class="footer-dot">·</span>
+          <a href="#/fiqhtool">Fiqh Tool</a>
+          <span class="footer-dot">·</span>
+          <a href="#/login">Login</a>
+          <span class="footer-dot">·</span>
+          <a href="#/register">Register</a>
+        </nav>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-row-2">
+        <p class="footer-copyright">© 2026 Maktabah. All rights reserved.</p>
+        <p class="footer-quote">"Are those who know equal to those who do not know?" — Quran 39:9</p>
+      </div>
+    </div>
+  `;
+  app.appendChild(footer);
 }
 
 window.addEventListener('hashchange', navigate);

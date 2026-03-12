@@ -100,7 +100,7 @@ export async function renderRoadmap(container, user) {
     if (!pathEl || !detailEl) return;
 
     pathEl.innerHTML   = '<p class="loading">Loading roadmap…</p>';
-    detailEl.innerHTML = '<p class="path-details-hint">Select a level and field, then tap a step to see the book details.</p>';
+    detailEl.innerHTML = '';
 
     if (user) {
       try   { completedIds = new Set(await getProgress()); }
