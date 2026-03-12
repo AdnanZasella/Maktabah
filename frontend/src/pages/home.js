@@ -209,7 +209,7 @@ export async function renderHome(container) {
         <div class="footer-divider"></div>
         <div class="footer-row-2">
           <p class="footer-copyright">© 2026 Maktabah. All rights reserved.</p>
-          <p class="footer-quote">"Seeking knowledge is an obligation upon every Muslim."</p>
+          <p class="footer-quote">"Are those who know equal to those who do not know?" — Quran 39:9</p>
         </div>
       </div>
     </footer>
