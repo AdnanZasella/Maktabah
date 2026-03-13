@@ -1309,9 +1309,11 @@ button {
   font-size: 2.75rem;
   font-weight: 700;
   color: var(--text-primary);
+  display: inline-block;
 }
 
 .price-amount.gold { color: var(--gold-light); }
+
 
 .price-period {
   font-size: 0.875rem;

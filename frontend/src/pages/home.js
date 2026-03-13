@@ -262,11 +262,32 @@ export async function renderHome(container) {
   const pricePeriod   = container.querySelector('#premium-price-period');
   const savingsBadge  = container.querySelector('#yearly-savings');
 
+  function animatePrice(newText) {
+    // Fade + drift out
+    priceAmount.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+    priceAmount.style.opacity    = '0';
+    priceAmount.style.transform  = 'translateY(-8px)';
+
+    setTimeout(() => {
+      // Swap number, reset position below, then fade in
+      priceAmount.textContent      = newText;
+      priceAmount.style.transition = 'none';
+      priceAmount.style.opacity    = '0';
+      priceAmount.style.transform  = 'translateY(8px)';
+
+      // Force reflow so the reset is applied before the transition starts
+      priceAmount.offsetHeight;
+
+      priceAmount.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
+      priceAmount.style.opacity    = '1';
+      priceAmount.style.transform  = 'translateY(0)';
+    }, 190);
+  }
+
   monthlyBtn.addEventListener('click', () => {
     monthlyBtn.classList.add('active');
     yearlyBtn.classList.remove('active');
-    priceAmount.textContent   = '129';
-    priceCurrency.textContent = 'kr';
+    animatePrice('129');
     pricePeriod.textContent   = '/ month';
     savingsBadge.style.display = 'none';
   });
@@ -274,8 +295,7 @@ export async function renderHome(container) {
   yearlyBtn.addEventListener('click', () => {
     yearlyBtn.classList.add('active');
     monthlyBtn.classList.remove('active');
-    priceAmount.textContent   = '1 160';
-    priceCurrency.textContent = 'kr';
+    animatePrice('1 160');
     pricePeriod.textContent   = '/ year';
     savingsBadge.style.display = 'inline-flex';
   });
