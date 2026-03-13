@@ -11,6 +11,7 @@ public class RoadmapStepDTO {
     private String level;
     private Integer stepOrder;
     private String description;
+    private String fieldName;
 
     public RoadmapStepDTO() {}
 
@@ -54,4 +55,7 @@ public class RoadmapStepDTO {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getFieldName() { return fieldName; }
+    public void setFieldName(String fieldName) { this.fieldName = fieldName; }
 }

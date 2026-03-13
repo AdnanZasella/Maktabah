@@ -11,6 +11,10 @@ import {
   adminUpdateMasalah,
   adminDeleteMasalah,
   adminVerifyMasalah,
+  adminGetRoadmapSteps,
+  adminAddRoadmapStep,
+  adminUpdateRoadmapStep,
+  adminDeleteRoadmapStep,
   getFields,
   getSubfields,
 } from '../api.js';
@@ -40,6 +44,7 @@ export async function renderAdmin(container, user) {
         <button class="admin-tab active" data-tab="users">Users</button>
         <button class="admin-tab" data-tab="books">Books</button>
         <button class="admin-tab" data-tab="masail">Masail</button>
+        <button class="admin-tab" data-tab="roadmap">Roadmap</button>
       </div>
       <div id="admin-tab-content"></div>
     </div>
@@ -55,6 +60,7 @@ export async function renderAdmin(container, user) {
     if (tab === 'users') await renderUsersTab(tabContent);
     if (tab === 'books') await renderBooksTab(tabContent);
     if (tab === 'masail') await renderMasailTab(tabContent);
+    if (tab === 'roadmap') await renderRoadmapTab(tabContent);
   }
 
   container.querySelectorAll('.admin-tab').forEach(btn => {
@@ -197,7 +203,7 @@ async function renderBooksTab(container) {
           </div>
           <label>Description<textarea name="description" rows="3"></textarea></label>
           <label>Author Bio<textarea name="authorBio" rows="2"></textarea></label>
-          <label>PDF File *<input type="file" name="file" accept=".pdf" required></label>
+          <label>PDF File<input type="file" name="file" accept=".pdf"><span class="admin-field-hint">Optional — you can upload the PDF later via Edit.</span></label>
           <div id="add-book-msg" class="admin-msg"></div>
           <div style="display:flex;gap:0.5rem">
             <button type="submit" class="admin-btn admin-btn-primary">Add Book</button>
@@ -321,6 +327,7 @@ async function renderBooksTab(container) {
                   </div>
                   <label>Description<textarea name="description" rows="3">${escHtml(b.description || '')}</textarea></label>
                   <label>Author Bio<textarea name="authorBio" rows="2">${escHtml(b.authorBio || '')}</textarea></label>
+                  <label>Replace PDF<input type="file" name="file" accept=".pdf"><span class="admin-field-hint">${b.pdfFilename ? 'Current: ' + escHtml(b.pdfFilename) + ' — leave blank to keep it.' : 'No PDF uploaded yet.'}</span></label>
                   <div id="edit-book-msg-${b.id}" class="admin-msg"></div>
                   <button type="submit" class="admin-btn admin-btn-primary">Save</button>
                   <button type="button" class="admin-btn" data-cancel-edit="${b.id}">Cancel</button>
@@ -353,18 +360,19 @@ async function renderBooksTab(container) {
         e.preventDefault();
         const bookId = form.dataset.editBookForm;
         const msg = form.querySelector(`#edit-book-msg-${bookId}`);
-        const data = {
-          title: form.querySelector('[name=title]').value,
-          author: form.querySelector('[name=author]').value,
-          fieldId: Number(form.querySelector('[name=fieldId]').value),
-          level: form.querySelector('[name=level]').value,
-          description: form.querySelector('[name=description]').value,
-          authorBio: form.querySelector('[name=authorBio]').value,
-        };
+        const fd = new FormData();
+        fd.append('title', form.querySelector('[name=title]').value);
+        fd.append('author', form.querySelector('[name=author]').value);
+        fd.append('fieldId', form.querySelector('[name=fieldId]').value);
+        fd.append('level', form.querySelector('[name=level]').value);
+        fd.append('description', form.querySelector('[name=description]').value);
+        fd.append('authorBio', form.querySelector('[name=authorBio]').value);
+        const fileInput = form.querySelector('[name=file]');
+        if (fileInput.files[0]) fd.append('file', fileInput.files[0]);
         msg.textContent = 'Saving...';
         msg.className = 'admin-msg';
         try {
-          await adminUpdateBook(bookId, data);
+          await adminUpdateBook(bookId, fd);
           msg.textContent = 'Book updated.';
           msg.className = 'admin-msg admin-msg-success';
           await renderBooksTab(container);
@@ -646,6 +654,268 @@ async function renderMasailTab(container) {
       });
     });
   }
+}
+
+// ── Roadmap Tab ───────────────────────────────────────────────────────────────
+
+async function renderRoadmapTab(container) {
+  let steps, books, fields;
+  try {
+    [steps, books, fields] = await Promise.all([adminGetRoadmapSteps(), adminGetBooks(), getFields()]);
+  } catch {
+    container.innerHTML = '<p class="admin-error">Failed to load roadmap data.</p>';
+    return;
+  }
+
+  // Load subfields for each top-level field
+  const allSubfields = [];
+  await Promise.all(fields.map(async f => {
+    try {
+      const subs = await getSubfields(f.id);
+      subs.forEach(s => allSubfields.push({ ...s, parentName: f.name }));
+    } catch { /* ignore */ }
+  }));
+
+  // fieldId → display name map
+  const fieldNameMap = {};
+  fields.forEach(f => { fieldNameMap[f.id] = f.name; });
+  allSubfields.forEach(s => { fieldNameMap[s.id] = `${s.parentName} → ${s.name}`; });
+
+  // bookId → book object map
+  const bookMap = {};
+  books.forEach(b => { bookMap[b.id] = b; });
+
+  const fieldOptions = [
+    ...fields.map(f => `<option value="${f.id}">[${escHtml(f.name)}] (top-level)</option>`),
+    ...allSubfields.map(s => `<option value="${s.id}">${escHtml(s.parentName)} → ${escHtml(s.name)}</option>`),
+  ].join('');
+
+  const bookOptions = books
+    .slice()
+    .sort((a, b) => a.title.localeCompare(b.title))
+    .map(b => `<option value="${b.id}">${escHtml(b.title)} — ${escHtml(b.author)}</option>`)
+    .join('');
+
+  container.innerHTML = `
+    <div class="admin-section">
+      <div id="add-step-intro">
+        <h2>Roadmap Steps</h2>
+        <p class="admin-section-desc">Manage all roadmap steps. Each step links a book to a field (or madhab subfield) and level. Steps are ordered by step number within each field+level combination. When the field is Fiqh, select the madhab subfield (e.g. Fiqh → Hanafi).</p>
+        <button class="admin-btn admin-btn-primary" id="show-add-step-btn">+ Add Step</button>
+      </div>
+      <div id="add-step-form-wrap" style="display:none">
+        <h2>Add Roadmap Step</h2>
+        <form id="add-step-form" class="admin-form">
+          <div class="admin-form-row">
+            <label>Field *
+              <select name="fieldId" required>${fieldOptions}</select>
+            </label>
+            <label>Level *
+              <select name="level" required>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </label>
+          </div>
+          <div class="admin-form-row">
+            <label>Book *
+              <select name="bookId" required>${bookOptions}</select>
+            </label>
+            <label>Step Order *<input type="number" name="stepOrder" min="1" required></label>
+          </div>
+          <label>Description *<textarea name="description" rows="3" required></textarea></label>
+          <div id="add-step-msg" class="admin-msg"></div>
+          <div style="display:flex;gap:0.5rem">
+            <button type="submit" class="admin-btn admin-btn-primary">Add Step</button>
+            <button type="button" class="admin-btn" id="cancel-add-step-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-section">
+      <h2>All Steps (${steps.length})</h2>
+      <div class="admin-filters">
+        <select id="step-filter-field" class="admin-filter-select">
+          <option value="">All Fields</option>
+          ${fields.map(f => `<option value="${f.id}">${escHtml(f.name)}</option>`).join('')}
+          ${allSubfields.map(s => `<option value="${s.id}">${escHtml(s.parentName)} → ${escHtml(s.name)}</option>`).join('')}
+        </select>
+        <select id="step-filter-level" class="admin-filter-select">
+          <option value="">All Levels</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+      <div id="steps-table-wrap"></div>
+    </div>
+  `;
+
+  // Show / hide add form
+  container.querySelector('#show-add-step-btn').addEventListener('click', () => {
+    container.querySelector('#add-step-intro').style.display = 'none';
+    container.querySelector('#add-step-form-wrap').style.display = 'block';
+  });
+  container.querySelector('#cancel-add-step-btn').addEventListener('click', () => {
+    container.querySelector('#add-step-form').reset();
+    container.querySelector('#add-step-msg').textContent = '';
+    container.querySelector('#add-step-form-wrap').style.display = 'none';
+    container.querySelector('#add-step-intro').style.display = 'block';
+  });
+
+  // Add step form submit
+  container.querySelector('#add-step-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const form = e.target;
+    const msg = form.querySelector('#add-step-msg');
+    const data = {
+      fieldId: Number(form.querySelector('[name=fieldId]').value),
+      bookId: Number(form.querySelector('[name=bookId]').value),
+      level: form.querySelector('[name=level]').value,
+      stepOrder: Number(form.querySelector('[name=stepOrder]').value),
+      description: form.querySelector('[name=description]').value,
+    };
+    msg.textContent = 'Adding...';
+    msg.className = 'admin-msg';
+    try {
+      await adminAddRoadmapStep(data);
+      form.reset();
+      await renderRoadmapTab(container);
+    } catch (err) {
+      msg.textContent = err.message || 'Failed to add step.';
+      msg.className = 'admin-msg admin-msg-error';
+    }
+  });
+
+  // Filter logic
+  function getFilteredSteps() {
+    const fieldId = container.querySelector('#step-filter-field').value;
+    const level = container.querySelector('#step-filter-level').value;
+    let filtered = steps.slice();
+    if (fieldId) filtered = filtered.filter(s => String(s.fieldId) === fieldId);
+    if (level) filtered = filtered.filter(s => s.level === level);
+    return filtered;
+  }
+
+  function renderStepsTable() {
+    const filtered = getFilteredSteps();
+    const wrap = container.querySelector('#steps-table-wrap');
+    wrap.innerHTML = `
+      <table class="admin-table">
+        <thead>
+          <tr><th>#</th><th>Field</th><th>Level</th><th>Book</th><th>Description</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          ${filtered.map(s => `
+            <tr>
+              <td>${s.stepOrder}</td>
+              <td>${escHtml(fieldNameMap[s.fieldId] || s.fieldName || String(s.fieldId))}</td>
+              <td>${escHtml(s.level)}</td>
+              <td>${escHtml(s.bookTitle)}</td>
+              <td class="admin-cell-desc">${escHtml(s.description)}</td>
+              <td>
+                <button class="admin-btn admin-btn-sm" data-action="edit-step" data-id="${s.id}">Edit</button>
+                <button class="admin-btn admin-btn-sm admin-btn-danger" data-action="delete-step" data-id="${s.id}" data-title="${escHtml(s.bookTitle)}">Delete</button>
+              </td>
+            </tr>
+            <tr class="admin-edit-row" id="edit-step-row-${s.id}" style="display:none">
+              <td colspan="6">
+                <form class="admin-form admin-inline-form" data-edit-step-form="${s.id}">
+                  <div class="admin-form-row">
+                    <label>Field *
+                      <select name="fieldId" required>
+                        ${fields.map(f => `<option value="${f.id}" ${s.fieldId === f.id ? 'selected' : ''}>[${escHtml(f.name)}] (top-level)</option>`).join('')}
+                        ${allSubfields.map(sub => `<option value="${sub.id}" ${s.fieldId === sub.id ? 'selected' : ''}>${escHtml(sub.parentName)} → ${escHtml(sub.name)}</option>`).join('')}
+                      </select>
+                    </label>
+                    <label>Level *
+                      <select name="level" required>
+                        ${['beginner','intermediate','advanced'].map(l => `<option value="${l}" ${s.level === l ? 'selected' : ''}>${l}</option>`).join('')}
+                      </select>
+                    </label>
+                  </div>
+                  <div class="admin-form-row">
+                    <label>Book *
+                      <select name="bookId" required>
+                        ${books.slice().sort((a,b) => a.title.localeCompare(b.title)).map(b => `<option value="${b.id}" ${s.bookId === b.id ? 'selected' : ''}>${escHtml(b.title)} — ${escHtml(b.author)}</option>`).join('')}
+                      </select>
+                    </label>
+                    <label>Step Order *<input type="number" name="stepOrder" min="1" value="${s.stepOrder}" required></label>
+                  </div>
+                  <label>Description *<textarea name="description" rows="3" required>${escHtml(s.description)}</textarea></label>
+                  <div id="edit-step-msg-${s.id}" class="admin-msg"></div>
+                  <button type="submit" class="admin-btn admin-btn-primary">Save</button>
+                  <button type="button" class="admin-btn" data-cancel-step="${s.id}">Cancel</button>
+                </form>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+    wireStepTableEvents();
+  }
+
+  function wireStepTableEvents() {
+    container.querySelectorAll('[data-action="edit-step"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const row = container.querySelector(`#edit-step-row-${btn.dataset.id}`);
+        row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+      });
+    });
+
+    container.querySelectorAll('[data-cancel-step]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        container.querySelector(`#edit-step-row-${btn.dataset.cancelStep}`).style.display = 'none';
+      });
+    });
+
+    container.querySelectorAll('[data-edit-step-form]').forEach(form => {
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const stepId = form.dataset.editStepForm;
+        const msg = form.querySelector(`#edit-step-msg-${stepId}`);
+        const data = {
+          fieldId: Number(form.querySelector('[name=fieldId]').value),
+          bookId: Number(form.querySelector('[name=bookId]').value),
+          level: form.querySelector('[name=level]').value,
+          stepOrder: Number(form.querySelector('[name=stepOrder]').value),
+          description: form.querySelector('[name=description]').value,
+        };
+        msg.textContent = 'Saving...';
+        msg.className = 'admin-msg';
+        try {
+          await adminUpdateRoadmapStep(stepId, data);
+          msg.textContent = 'Step updated.';
+          msg.className = 'admin-msg admin-msg-success';
+          await renderRoadmapTab(container);
+        } catch (err) {
+          msg.textContent = err.message || 'Failed to update step.';
+          msg.className = 'admin-msg admin-msg-error';
+        }
+      });
+    });
+
+    container.querySelectorAll('[data-action="delete-step"]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (!confirm(`Delete step for "${btn.dataset.title}"? This cannot be undone.`)) return;
+        try {
+          await adminDeleteRoadmapStep(btn.dataset.id);
+          await renderRoadmapTab(container);
+        } catch {
+          alert('Failed to delete step.');
+        }
+      });
+    });
+  }
+
+  ['#step-filter-field', '#step-filter-level'].forEach(sel => {
+    container.querySelector(sel).addEventListener('change', renderStepsTable);
+  });
+
+  renderStepsTable();
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

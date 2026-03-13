@@ -3,6 +3,7 @@ package com.maktabah.controller;
 import com.maktabah.dto.AdminUserDTO;
 import com.maktabah.dto.BookDTO;
 import com.maktabah.dto.MasalahDTO;
+import com.maktabah.dto.RoadmapStepDTO;
 import com.maktabah.service.AdminService;
 import com.maktabah.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -84,7 +85,7 @@ public class AdminController {
             @RequestParam String level,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String authorBio,
-            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "file", required = false) MultipartFile file,
             Authentication authentication) {
 
         if (!isAdmin(authentication)) {
@@ -103,25 +104,29 @@ public class AdminController {
     @PutMapping("/books/{id}")
     public ResponseEntity<?> updateBook(
             @PathVariable Long id,
-            @RequestBody Map<String, Object> body,
+            @RequestParam String title,
+            @RequestParam String author,
+            @RequestParam Long fieldId,
+            @RequestParam String level,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String authorBio,
+            @RequestParam(value = "file", required = false) MultipartFile file,
             Authentication authentication) {
 
         if (!isAdmin(authentication)) {
             return ResponseEntity.status(403).body(Map.of("message", "Access denied"));
         }
-        String title = (String) body.get("title");
-        String author = (String) body.get("author");
-        Long fieldId = body.get("fieldId") != null ? Long.valueOf(body.get("fieldId").toString()) : null;
-        String level = (String) body.get("level");
-        String description = (String) body.get("description");
-        String authorBio = (String) body.get("authorBio");
-
         if (title == null || author == null || fieldId == null || level == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "title, author, fieldId, and level are required"));
         }
-
-        BookDTO book = adminService.updateBook(id, title, author, fieldId, level, description, authorBio);
-        return ResponseEntity.ok(book);
+        try {
+            BookDTO book = adminService.updateBook(id, title, author, fieldId, level, description, authorBio, file);
+            return ResponseEntity.ok(book);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body(Map.of("message", "Something went wrong. Please try again."));
+        }
     }
 
     @DeleteMapping("/books/{id}")
@@ -196,6 +201,93 @@ public class AdminController {
             return ResponseEntity.ok(Map.of("message", "Masalah verified"));
         } catch (IllegalStateException e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        }
+    }
+
+    // ── Roadmap Steps ─────────────────────────────────────────────────────────────
+
+    @GetMapping("/roadmap")
+    public ResponseEntity<?> getAllRoadmapSteps(Authentication authentication) {
+        if (!isAdmin(authentication)) {
+            return ResponseEntity.status(403).body(Map.of("message", "Access denied"));
+        }
+        return ResponseEntity.ok(adminService.getAllRoadmapSteps());
+    }
+
+    @PostMapping("/roadmap")
+    public ResponseEntity<?> addRoadmapStep(
+            @RequestBody Map<String, Object> body,
+            Authentication authentication) {
+
+        if (!isAdmin(authentication)) {
+            return ResponseEntity.status(403).body(Map.of("message", "Access denied"));
+        }
+        try {
+            Long fieldId = Long.valueOf(body.get("fieldId").toString());
+            Long bookId = Long.valueOf(body.get("bookId").toString());
+            String level = (String) body.get("level");
+            Integer stepOrder = Integer.valueOf(body.get("stepOrder").toString());
+            String description = (String) body.get("description");
+
+            if (level == null || level.isBlank() || description == null || description.isBlank()) {
+                return ResponseEntity.badRequest().body(Map.of("message", "level and description are required"));
+            }
+
+            RoadmapStepDTO step = adminService.addRoadmapStep(fieldId, bookId, level, stepOrder, description);
+            return ResponseEntity.status(201).body(step);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "fieldId, bookId, level, stepOrder, and description are required"));
+        } catch (com.maktabah.exception.ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(Map.of("message", e.getMessage()));
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "A step with this field, level, and step order already exists"));
+        }
+    }
+
+    @PutMapping("/roadmap/{id}")
+    public ResponseEntity<?> updateRoadmapStep(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> body,
+            Authentication authentication) {
+
+        if (!isAdmin(authentication)) {
+            return ResponseEntity.status(403).body(Map.of("message", "Access denied"));
+        }
+        try {
+            Long fieldId = Long.valueOf(body.get("fieldId").toString());
+            Long bookId = Long.valueOf(body.get("bookId").toString());
+            String level = (String) body.get("level");
+            Integer stepOrder = Integer.valueOf(body.get("stepOrder").toString());
+            String description = (String) body.get("description");
+
+            if (level == null || level.isBlank() || description == null || description.isBlank()) {
+                return ResponseEntity.badRequest().body(Map.of("message", "level and description are required"));
+            }
+
+            RoadmapStepDTO step = adminService.updateRoadmapStep(id, fieldId, bookId, level, stepOrder, description);
+            return ResponseEntity.ok(step);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "fieldId, bookId, level, stepOrder, and description are required"));
+        } catch (com.maktabah.exception.ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(Map.of("message", e.getMessage()));
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "A step with this field, level, and step order already exists"));
+        }
+    }
+
+    @DeleteMapping("/roadmap/{id}")
+    public ResponseEntity<?> deleteRoadmapStep(
+            @PathVariable Long id,
+            Authentication authentication) {
+
+        if (!isAdmin(authentication)) {
+            return ResponseEntity.status(403).body(Map.of("message", "Access denied"));
+        }
+        try {
+            adminService.deleteRoadmapStep(id);
+            return ResponseEntity.ok(Map.of("message", "Roadmap step deleted"));
+        } catch (com.maktabah.exception.ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(Map.of("message", e.getMessage()));
         }
     }
 

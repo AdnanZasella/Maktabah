@@ -850,18 +850,26 @@ button {
 .btn-ghost-lg {
   display: inline-block;
   background: transparent;
-  border: 1px solid var(--border-glass);
-  color: var(--text-secondary);
+  border: 1px solid var(--green-primary);
+  color: var(--text-primary);
   border-radius: 10px;
   padding: 0.9375rem 2rem;
   font-size: 1rem;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .btn-ghost-lg:hover {
   border-color: var(--green-primary);
   color: var(--text-primary);
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 36px rgba(74, 124, 89, 0.25),
+    0 0 20px rgba(106, 171, 126, 0.15);
+}
+
+.btn-ghost-lg:active {
+  transform: translateY(-1px);
 }
 
 .home-announcement {
@@ -1529,11 +1537,6 @@ button {
 
 .roadmap-col-right {
   padding: 0.5rem 1.5rem 2rem;
-  max-height: calc(100vh - 72px - 4rem);
-  overflow-y: auto;
-  /* Thin scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(106,171,126,0.35) transparent;
 }
 
 .roadmap-detail-panel {

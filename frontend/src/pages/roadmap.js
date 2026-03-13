@@ -1,7 +1,19 @@
-import { getFields, getRoadmap, getProgress, completeStep } from '../api.js';
+import { getFields, getSubfields, getRoadmap, getProgress, completeStep } from '../api.js';
 import { createStepDetails } from '../components/roadmapstep.js';
 import { getFieldColors } from '../components/fieldcard.js';
 import { isPaid } from '../auth.js';
+
+// Per-madhab accent colors (matches fiqhtool madhab cards)
+const MADHAB_ACCENTS = {
+  'Hanafi':  '#6495ed',
+  'Maliki':  '#4a7c59',
+  'Shafii':  '#c9933a',
+  'Hanbali': '#b47878',
+};
+
+function getMadhabAccent(name) {
+  return MADHAB_ACCENTS[name] || '#e0b060';
+}
 
 export async function renderRoadmap(container, user) {
   container.innerHTML = `
@@ -29,6 +41,10 @@ export async function renderRoadmap(container, user) {
             <span class="selector-label">Field</span>
             <div class="field-btns" id="field-btns"></div>
           </div>
+          <div class="roadmap-selector-group" id="madhab-group" style="display:none">
+            <span class="selector-label">Madhab</span>
+            <div class="field-btns" id="madhab-btns"></div>
+          </div>
         </div>
 
         <div id="roadmap-detail" class="roadmap-detail-panel">
@@ -50,10 +66,45 @@ export async function renderRoadmap(container, user) {
 
   try { fields = await getFields(); } catch { /* field buttons stay empty */ }
 
-  const fieldBtnsEl = document.getElementById('field-btns');
-  const levelBtns   = container.querySelectorAll('#level-btns .filter-btn');
+  const fieldBtnsEl  = document.getElementById('field-btns');
+  const madhabGroup  = document.getElementById('madhab-group');
+  const madhabBtnsEl = document.getElementById('madhab-btns');
+  const levelBtns    = container.querySelectorAll('#level-btns .filter-btn');
 
-  // Build one colored button per field
+  function clearMadhabRow() {
+    madhabGroup.style.display = 'none';
+    madhabBtnsEl.innerHTML = '';
+    // Only clear selectedFieldId if a madhab was the active selection
+    // (field buttons without subfields set it directly — don't clear those)
+  }
+
+  function setFieldBtnActive(btn, accent) {
+    fieldBtnsEl.querySelectorAll('.field-btn').forEach(b => {
+      b.classList.remove('active');
+      b.style.borderColor = '';
+      b.style.boxShadow   = '';
+      b.style.color       = '';
+    });
+    btn.classList.add('active');
+    btn.style.borderColor = accent;
+    btn.style.boxShadow   = `0 0 0 2px ${accent}33`;
+    btn.style.color       = accent;
+  }
+
+  function setMadhabBtnActive(btn, accent) {
+    madhabBtnsEl.querySelectorAll('.field-btn').forEach(b => {
+      b.classList.remove('active');
+      b.style.borderColor = '';
+      b.style.boxShadow   = '';
+      b.style.color       = '';
+    });
+    btn.classList.add('active');
+    btn.style.borderColor = accent;
+    btn.style.boxShadow   = `0 0 0 2px ${accent}33`;
+    btn.style.color       = accent;
+  }
+
+  // Build one colored button per top-level field
   fields.forEach(f => {
     const colors = getFieldColors(f.name);
     const accent = colors.accent;
@@ -63,22 +114,54 @@ export async function renderRoadmap(container, user) {
     btn.textContent = f.name;
     btn.dataset.accent = accent;
 
-    btn.addEventListener('click', () => {
-      // Restore all buttons to inactive state
-      fieldBtnsEl.querySelectorAll('.field-btn').forEach(b => {
-        b.classList.remove('active');
-        b.style.borderColor = '';
-        b.style.boxShadow   = '';
-        b.style.color       = '';
-      });
-      // Active: accent border + glow + accent text
-      btn.classList.add('active');
-      btn.style.borderColor = accent;
-      btn.style.boxShadow   = `0 0 0 2px ${accent}33`;
-      btn.style.color       = accent;
+    btn.addEventListener('click', async () => {
+      setFieldBtnActive(btn, accent);
 
-      selectedFieldId = f.id;
-      if (selectedLevel) loadRoadmap();
+      // Always clear the madhab row first
+      clearMadhabRow();
+      selectedFieldId = null;
+
+      // Check if this field has subfields
+      let subs = [];
+      try { subs = await getSubfields(f.id); } catch { subs = []; }
+
+      if (subs.length > 0) {
+        // Show madhab selector — don't load roadmap yet
+        madhabBtnsEl.innerHTML = '';
+        subs.forEach(sub => {
+          const subAccent = getMadhabAccent(sub.name);
+          const subBtn = document.createElement('button');
+          subBtn.className = 'field-btn';
+          subBtn.textContent = sub.name;
+          subBtn.dataset.accent = subAccent;
+
+          subBtn.addEventListener('click', () => {
+            setMadhabBtnActive(subBtn, subAccent);
+            selectedFieldId = sub.id;
+            if (selectedLevel) loadRoadmap();
+          });
+
+          subBtn.addEventListener('mouseenter', () => {
+            if (subBtn.classList.contains('active')) return;
+            subBtn.style.borderColor = subAccent;
+            subBtn.style.color       = subAccent;
+            subBtn.style.background  = `${subAccent}1a`;
+          });
+          subBtn.addEventListener('mouseleave', () => {
+            if (subBtn.classList.contains('active')) return;
+            subBtn.style.borderColor = '';
+            subBtn.style.color       = '';
+            subBtn.style.background  = '';
+          });
+
+          madhabBtnsEl.appendChild(subBtn);
+        });
+        madhabGroup.style.display = '';
+      } else {
+        // No subfields — use this field directly
+        selectedFieldId = f.id;
+        if (selectedLevel) loadRoadmap();
+      }
     });
 
     fieldBtnsEl.appendChild(btn);

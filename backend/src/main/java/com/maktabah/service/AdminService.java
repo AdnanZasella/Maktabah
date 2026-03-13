@@ -4,16 +4,19 @@ import com.maktabah.dto.AdminUserDTO;
 import com.maktabah.dto.BookDTO;
 import com.maktabah.dto.MadhabOpinionDTO;
 import com.maktabah.dto.MasalahDTO;
+import com.maktabah.dto.RoadmapStepDTO;
 import com.maktabah.exception.ResourceNotFoundException;
 import com.maktabah.model.Book;
 import com.maktabah.model.Field;
 import com.maktabah.model.MadhabOpinion;
 import com.maktabah.model.Masalah;
+import com.maktabah.model.RoadmapStep;
 import com.maktabah.model.User;
 import com.maktabah.repository.BookRepository;
 import com.maktabah.repository.FieldRepository;
 import com.maktabah.repository.MadhabOpinionRepository;
 import com.maktabah.repository.MasalahRepository;
+import com.maktabah.repository.RoadmapStepRepository;
 import com.maktabah.repository.UserProgressRepository;
 import com.maktabah.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +42,7 @@ public class AdminService {
     private final FieldRepository fieldRepository;
     private final MasalahRepository masalahRepository;
     private final MadhabOpinionRepository madhabOpinionRepository;
+    private final RoadmapStepRepository roadmapStepRepository;
 
     @Value("${app.pdf.storage.path}")
     private String pdfStoragePath;
@@ -48,13 +52,15 @@ public class AdminService {
                         BookRepository bookRepository,
                         FieldRepository fieldRepository,
                         MasalahRepository masalahRepository,
-                        MadhabOpinionRepository madhabOpinionRepository) {
+                        MadhabOpinionRepository madhabOpinionRepository,
+                        RoadmapStepRepository roadmapStepRepository) {
         this.userRepository = userRepository;
         this.userProgressRepository = userProgressRepository;
         this.bookRepository = bookRepository;
         this.fieldRepository = fieldRepository;
         this.masalahRepository = masalahRepository;
         this.madhabOpinionRepository = madhabOpinionRepository;
+        this.roadmapStepRepository = roadmapStepRepository;
     }
 
     // ── Users ────────────────────────────────────────────────────────────────
@@ -92,19 +98,19 @@ public class AdminService {
 
     public BookDTO addBook(String title, String author, Long fieldId, String level,
                            String description, String authorBio, MultipartFile file) throws IOException {
-        validatePdfMagicBytes(file);
-
         Field field = fieldRepository.findById(fieldId)
                 .orElseThrow(() -> new ResourceNotFoundException("Field not found"));
 
-        String subfolder = getTopLevelFieldName(field);
-        String filename = toKebabCase(title) + ".pdf";
-        String pdfFilename = subfolder + "/" + filename;
-
-        Path targetDir = Paths.get(pdfStoragePath, subfolder);
-        Files.createDirectories(targetDir);
-        Path targetPath = targetDir.resolve(filename);
-        Files.write(targetPath, file.getBytes());
+        String pdfFilename = "";
+        if (file != null && !file.isEmpty()) {
+            validatePdfMagicBytes(file);
+            String subfolder = getTopLevelFieldName(field);
+            String filename = toKebabCase(title) + ".pdf";
+            pdfFilename = subfolder + "/" + filename;
+            Path targetDir = Paths.get(pdfStoragePath, subfolder);
+            Files.createDirectories(targetDir);
+            Files.write(targetDir.resolve(filename), file.getBytes());
+        }
 
         Book book = new Book();
         book.setTitle(title);
@@ -119,7 +125,8 @@ public class AdminService {
     }
 
     public BookDTO updateBook(Long id, String title, String author, Long fieldId,
-                              String level, String description, String authorBio) {
+                              String level, String description, String authorBio,
+                              MultipartFile file) throws IOException {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
 
@@ -132,6 +139,16 @@ public class AdminService {
         book.setLevel(level);
         book.setDescription(description);
         book.setAuthorBio(authorBio);
+
+        if (file != null && !file.isEmpty()) {
+            validatePdfMagicBytes(file);
+            String subfolder = getTopLevelFieldName(field);
+            String filename = toKebabCase(title) + ".pdf";
+            Path targetDir = Paths.get(pdfStoragePath, subfolder);
+            Files.createDirectories(targetDir);
+            Files.write(targetDir.resolve(filename), file.getBytes());
+            book.setPdfFilename(subfolder + "/" + filename);
+        }
 
         return toBookDTO(bookRepository.save(book));
     }
@@ -231,6 +248,57 @@ public class AdminService {
         masalahRepository.delete(masalah);
     }
 
+    // ── Roadmap Steps ─────────────────────────────────────────────────────────────
+
+    public List<RoadmapStepDTO> getAllRoadmapSteps() {
+        return roadmapStepRepository.findAllOrdered()
+                .stream()
+                .map(this::toRoadmapStepDTO)
+                .toList();
+    }
+
+    public RoadmapStepDTO addRoadmapStep(Long fieldId, Long bookId, String level,
+                                          Integer stepOrder, String description) {
+        Field field = fieldRepository.findById(fieldId)
+                .orElseThrow(() -> new ResourceNotFoundException("Field not found"));
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+
+        RoadmapStep step = new RoadmapStep();
+        step.setField(field);
+        step.setBook(book);
+        step.setLevel(level);
+        step.setStepOrder(stepOrder);
+        step.setDescription(description);
+
+        return toRoadmapStepDTO(roadmapStepRepository.save(step));
+    }
+
+    public RoadmapStepDTO updateRoadmapStep(Long id, Long fieldId, Long bookId, String level,
+                                             Integer stepOrder, String description) {
+        RoadmapStep step = roadmapStepRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Roadmap step not found"));
+
+        Field field = fieldRepository.findById(fieldId)
+                .orElseThrow(() -> new ResourceNotFoundException("Field not found"));
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+
+        step.setField(field);
+        step.setBook(book);
+        step.setLevel(level);
+        step.setStepOrder(stepOrder);
+        step.setDescription(description);
+
+        return toRoadmapStepDTO(roadmapStepRepository.save(step));
+    }
+
+    public void deleteRoadmapStep(Long id) {
+        RoadmapStep step = roadmapStepRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Roadmap step not found"));
+        roadmapStepRepository.delete(step);
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────────
 
     private void validatePdfMagicBytes(MultipartFile file) throws IOException {
@@ -270,6 +338,22 @@ public class AdminService {
         opinion.setSourceBook(dto.getSourceBook());
         opinion.setSourcePage(dto.getSourcePage());
         madhabOpinionRepository.save(opinion);
+    }
+
+    private RoadmapStepDTO toRoadmapStepDTO(RoadmapStep step) {
+        RoadmapStepDTO dto = new RoadmapStepDTO(
+                step.getId(),
+                step.getField().getId(),
+                step.getBook().getId(),
+                step.getBook().getTitle(),
+                step.getBook().getAuthor(),
+                step.getBook().getPdfFilename(),
+                step.getLevel(),
+                step.getStepOrder(),
+                step.getDescription()
+        );
+        dto.setFieldName(step.getField().getName());
+        return dto;
     }
 
     private BookDTO toBookDTO(Book book) {

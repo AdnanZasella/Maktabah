@@ -54,6 +54,9 @@ public class BookService {
     public Resource getBookFile(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+        if (book.getPdfFilename() == null || book.getPdfFilename().isBlank()) {
+            throw new ResourceNotFoundException("No PDF uploaded for this book yet");
+        }
         try {
             Path filePath = Paths.get(pdfStoragePath).resolve(book.getPdfFilename()).normalize();
             Resource resource = new UrlResource(filePath.toUri());

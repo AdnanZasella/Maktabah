@@ -243,14 +243,17 @@ export async function adminGetBooks() {
   return res.json();
 }
 
-export async function adminUpdateBook(bookId, bookData) {
+export async function adminUpdateBook(bookId, formData) {
+  // FormData — browser sets Content-Type with boundary automatically
   const res = await fetch(`${API_BASE}/api/admin/books/${bookId}`, {
     ...OPTS,
     method: 'PUT',
-    headers: JSON_HEADERS,
-    body: JSON.stringify(bookData),
+    body: formData,
   });
-  if (!res.ok) throw new Error('Failed to update book');
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || 'Failed to update book');
+  }
   return res.json();
 }
 
@@ -286,6 +289,49 @@ export async function adminUpdateMasalah(masalahId, data) {
     body: JSON.stringify(data),
   });
   if (!res.ok) throw new Error('Failed to update masalah');
+  return res.json();
+}
+
+export async function adminGetRoadmapSteps() {
+  const res = await fetch(`${API_BASE}/api/admin/roadmap`, OPTS);
+  if (!res.ok) throw new Error('Failed to fetch roadmap steps');
+  return res.json();
+}
+
+export async function adminAddRoadmapStep(data) {
+  const res = await fetch(`${API_BASE}/api/admin/roadmap`, {
+    ...OPTS,
+    method: 'POST',
+    headers: JSON_HEADERS,
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to add roadmap step');
+  }
+  return res.json();
+}
+
+export async function adminUpdateRoadmapStep(id, data) {
+  const res = await fetch(`${API_BASE}/api/admin/roadmap/${id}`, {
+    ...OPTS,
+    method: 'PUT',
+    headers: JSON_HEADERS,
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'Failed to update roadmap step');
+  }
+  return res.json();
+}
+
+export async function adminDeleteRoadmapStep(id) {
+  const res = await fetch(`${API_BASE}/api/admin/roadmap/${id}`, {
+    ...OPTS,
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete roadmap step');
   return res.json();
 }
 
