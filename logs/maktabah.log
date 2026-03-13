@@ -1,2 +1,204 @@
-2026-03-12T02:23:44.523+01:00  WARN 32140 --- [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h21m22s974ms835µs400ns).
-2026-03-12T16:46:39.625+01:00  WARN 32140 --- [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14h4m700ms199µs600ns).
+2026-03-13T16:29:17.568+01:00  INFO 8332 --- [restartedMain] com.maktabah.MaktabahApplication         : Starting MaktabahApplication using Java 21.0.8 with PID 8332 (C:\Users\adnan\IdeaProjects\Maktabah\backend\target\classes started by adnan in C:\Users\adnan\IdeaProjects\Maktabah)
+2026-03-13T16:29:17.577+01:00  INFO 8332 --- [restartedMain] com.maktabah.MaktabahApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-03-13T16:29:17.663+01:00  INFO 8332 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-13T16:29:17.664+01:00  INFO 8332 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-13T16:29:19.095+01:00  INFO 8332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13T16:29:19.223+01:00  INFO 8332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 8 JPA repository interfaces.
+2026-03-13T16:29:20.249+01:00  INFO 8332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-13T16:29:20.272+01:00  INFO 8332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-13T16:29:20.272+01:00  INFO 8332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2026-03-13T16:29:20.353+01:00  INFO 8332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-13T16:29:20.354+01:00  INFO 8332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2687 ms
+2026-03-13T16:29:20.623+01:00  INFO 8332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-13T16:29:20.734+01:00  INFO 8332 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2026-03-13T16:29:20.803+01:00  INFO 8332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-13T16:29:21.342+01:00  INFO 8332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13T16:29:21.389+01:00  INFO 8332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-13T16:29:21.873+01:00  INFO 8332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@37f96409
+2026-03-13T16:29:21.875+01:00  INFO 8332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-13T16:29:21.957+01:00  WARN 8332 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-13T16:29:21.989+01:00  INFO 8332 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 18.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-13T16:29:23.621+01:00  INFO 8332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13T16:29:24.327+01:00  INFO 8332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T16:29:25.065+01:00  INFO 8332 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-13T16:29:26.260+01:00  WARN 8332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13T16:29:26.638+01:00  WARN 8332 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4eae2ec1-007c-46b3-90bc-a76fb99af199
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-13T16:29:26.654+01:00  INFO 8332 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-13T16:29:27.330+01:00  INFO 8332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-03-13T16:29:27.374+01:00  INFO 8332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-03-13T16:29:27.389+01:00  INFO 8332 --- [restartedMain] com.maktabah.MaktabahApplication         : Started MaktabahApplication in 10.79 seconds (process running for 11.628)
+2026-03-13T16:29:35.169+01:00  INFO 8332 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-13T16:29:35.170+01:00  INFO 8332 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-13T16:29:35.172+01:00  INFO 8332 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-13T16:51:39.618+01:00  WARN 8332 --- [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/admin/roadmap.]
+2026-03-13T16:51:41.714+01:00  WARN 8332 --- [http-nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/admin/roadmap.]
+2026-03-13T16:51:41.877+01:00  WARN 8332 --- [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/admin/roadmap.]
+2026-03-13T16:51:43.379+01:00  INFO 8332 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-13T16:51:43.388+01:00  INFO 8332 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-03-13T16:51:43.396+01:00  INFO 8332 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T16:51:43.400+01:00  INFO 8332 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-13T16:51:43.402+01:00  INFO 8332 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-13T16:51:49.084+01:00  INFO 25016 --- [restartedMain] com.maktabah.MaktabahApplication         : Starting MaktabahApplication using Java 21.0.8 with PID 25016 (C:\Users\adnan\IdeaProjects\Maktabah\backend\target\classes started by adnan in C:\Users\adnan\IdeaProjects\Maktabah)
+2026-03-13T16:51:49.087+01:00  INFO 25016 --- [restartedMain] com.maktabah.MaktabahApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-03-13T16:51:49.160+01:00  INFO 25016 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-13T16:51:49.160+01:00  INFO 25016 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-13T16:51:50.392+01:00  INFO 25016 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13T16:51:50.501+01:00  INFO 25016 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 94 ms. Found 8 JPA repository interfaces.
+2026-03-13T16:51:51.994+01:00  INFO 25016 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-13T16:51:52.033+01:00  INFO 25016 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-13T16:51:52.034+01:00  INFO 25016 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2026-03-13T16:51:52.148+01:00  INFO 25016 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-13T16:51:52.149+01:00  INFO 25016 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2988 ms
+2026-03-13T16:51:52.528+01:00  INFO 25016 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-13T16:51:52.702+01:00  INFO 25016 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2026-03-13T16:51:52.800+01:00  INFO 25016 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-13T16:51:53.503+01:00  INFO 25016 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13T16:51:53.573+01:00  INFO 25016 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-13T16:51:54.070+01:00  INFO 25016 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@66331b79
+2026-03-13T16:51:54.074+01:00  INFO 25016 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-13T16:51:54.156+01:00  WARN 25016 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-13T16:51:54.195+01:00  INFO 25016 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 18.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-13T16:51:56.129+01:00  INFO 25016 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13T16:51:56.793+01:00  INFO 25016 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T16:51:57.614+01:00  INFO 25016 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-13T16:51:59.233+01:00  WARN 25016 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13T16:51:59.694+01:00  WARN 25016 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c7f194c1-e7ca-4817-85b0-861082edd178
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-13T16:51:59.716+01:00  INFO 25016 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-13T16:52:00.550+01:00  INFO 25016 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-03-13T16:52:00.622+01:00  INFO 25016 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-03-13T16:52:00.649+01:00  INFO 25016 --- [restartedMain] com.maktabah.MaktabahApplication         : Started MaktabahApplication in 12.29 seconds (process running for 13.065)
+2026-03-13T16:52:06.624+01:00  INFO 25016 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-13T16:52:06.625+01:00  INFO 25016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-13T16:52:06.626+01:00  INFO 25016 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-13T17:05:03.409+01:00  INFO 25016 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-13T17:05:03.417+01:00  INFO 25016 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-03-13T17:05:03.424+01:00  INFO 25016 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T17:05:03.428+01:00  INFO 25016 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-13T17:05:03.430+01:00  INFO 25016 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-13T17:05:08.601+01:00  INFO 35216 --- [restartedMain] com.maktabah.MaktabahApplication         : Starting MaktabahApplication using Java 21.0.8 with PID 35216 (C:\Users\adnan\IdeaProjects\Maktabah\backend\target\classes started by adnan in C:\Users\adnan\IdeaProjects\Maktabah)
+2026-03-13T17:05:08.605+01:00  INFO 35216 --- [restartedMain] com.maktabah.MaktabahApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-03-13T17:05:08.677+01:00  INFO 35216 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-13T17:05:08.677+01:00  INFO 35216 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-13T17:05:09.833+01:00  INFO 35216 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13T17:05:09.948+01:00  INFO 35216 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101 ms. Found 8 JPA repository interfaces.
+2026-03-13T17:05:11.073+01:00  INFO 35216 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-13T17:05:11.097+01:00  INFO 35216 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-13T17:05:11.098+01:00  INFO 35216 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2026-03-13T17:05:11.215+01:00  INFO 35216 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-13T17:05:11.215+01:00  INFO 35216 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2537 ms
+2026-03-13T17:05:11.468+01:00  INFO 35216 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-13T17:05:11.576+01:00  INFO 35216 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2026-03-13T17:05:11.634+01:00  INFO 35216 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-13T17:05:12.085+01:00  INFO 35216 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13T17:05:12.133+01:00  INFO 35216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-13T17:05:12.446+01:00  INFO 35216 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6baadcef
+2026-03-13T17:05:12.448+01:00  INFO 35216 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-13T17:05:12.508+01:00  WARN 35216 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-13T17:05:12.567+01:00  INFO 35216 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 18.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-13T17:05:14.184+01:00  INFO 35216 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13T17:05:14.834+01:00  INFO 35216 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T17:05:15.516+01:00  INFO 35216 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-13T17:05:16.915+01:00  WARN 35216 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13T17:05:17.428+01:00  WARN 35216 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 5072007a-5e77-4459-83e5-1750437a392f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-13T17:05:17.466+01:00  INFO 35216 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-13T17:05:18.151+01:00  INFO 35216 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-03-13T17:05:18.214+01:00  INFO 35216 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-03-13T17:05:18.235+01:00  INFO 35216 --- [restartedMain] com.maktabah.MaktabahApplication         : Started MaktabahApplication in 10.337 seconds (process running for 11.052)
+2026-03-13T17:05:25.082+01:00  INFO 35216 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-13T17:05:25.082+01:00  INFO 35216 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-13T17:05:25.083+01:00  INFO 35216 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-13T17:19:01.037+01:00  INFO 35216 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-13T17:19:01.046+01:00  INFO 35216 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-03-13T17:19:01.052+01:00  INFO 35216 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T17:19:01.056+01:00  INFO 35216 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-13T17:19:01.059+01:00  INFO 35216 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-13T17:19:04.699+01:00  INFO 19860 --- [restartedMain] com.maktabah.MaktabahApplication         : Starting MaktabahApplication using Java 21.0.8 with PID 19860 (C:\Users\adnan\IdeaProjects\Maktabah\backend\target\classes started by adnan in C:\Users\adnan\IdeaProjects\Maktabah)
+2026-03-13T17:19:04.703+01:00  INFO 19860 --- [restartedMain] com.maktabah.MaktabahApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-03-13T17:19:04.770+01:00  INFO 19860 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-13T17:19:04.770+01:00  INFO 19860 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-13T17:19:05.921+01:00  INFO 19860 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13T17:19:06.043+01:00  INFO 19860 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108 ms. Found 8 JPA repository interfaces.
+2026-03-13T17:19:07.097+01:00  INFO 19860 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-13T17:19:07.121+01:00  INFO 19860 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-13T17:19:07.122+01:00  INFO 19860 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2026-03-13T17:19:07.199+01:00  INFO 19860 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-13T17:19:07.199+01:00  INFO 19860 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2427 ms
+2026-03-13T17:19:07.447+01:00  INFO 19860 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-13T17:19:07.551+01:00  INFO 19860 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2026-03-13T17:19:07.609+01:00  INFO 19860 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-13T17:19:08.086+01:00  INFO 19860 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13T17:19:08.130+01:00  INFO 19860 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-13T17:19:08.430+01:00  INFO 19860 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@66331b79
+2026-03-13T17:19:08.433+01:00  INFO 19860 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-13T17:19:08.477+01:00  WARN 19860 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-13T17:19:08.503+01:00  INFO 19860 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 18.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-13T17:19:09.908+01:00  INFO 19860 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13T17:19:10.487+01:00  INFO 19860 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T17:19:11.037+01:00  INFO 19860 --- [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-13T17:19:12.201+01:00  WARN 19860 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13T17:19:12.580+01:00  WARN 19860 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 56970cbe-c6b5-4e18-b9d2-331c453397ce
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-13T17:19:12.599+01:00  INFO 19860 --- [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-13T17:19:13.185+01:00  INFO 19860 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-03-13T17:19:13.239+01:00  INFO 19860 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-03-13T17:19:13.255+01:00  INFO 19860 --- [restartedMain] com.maktabah.MaktabahApplication         : Started MaktabahApplication in 9.255 seconds (process running for 9.981)
+2026-03-13T17:19:16.712+01:00  INFO 19860 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-13T17:19:16.714+01:00  INFO 19860 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-13T17:19:16.715+01:00  INFO 19860 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-03-13T17:23:26.598+01:00  WARN 19860 --- [http-nio-8080-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 23505
+2026-03-13T17:23:26.599+01:00 ERROR 19860 --- [http-nio-8080-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : FEL: duplicate key value violates unique constraint "uke1272ukc86fb5gkpwni4gkf74"
+  Detail: Key (field_id, level, step_order)=(1, beginner, 5) already exists.
+2026-03-13T17:30:53.542+01:00  WARN 19860 --- [http-nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 23505
+2026-03-13T17:30:53.543+01:00 ERROR 19860 --- [http-nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : FEL: duplicerat nyckelvärde bryter mot unik-villkor "uke1272ukc86fb5gkpwni4gkf74"
+  Detail: Nyckeln (field_id, level, step_order)=(6, beginner, 1) existerar redan.
+2026-03-13T17:31:49.812+01:00  WARN 19860 --- [http-nio-8080-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 23505
+2026-03-13T17:31:49.812+01:00 ERROR 19860 --- [http-nio-8080-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : FEL: duplicerat nyckelvärde bryter mot unik-villkor "uke1272ukc86fb5gkpwni4gkf74"
+  Detail: Nyckeln (field_id, level, step_order)=(10, intermediate, 1) existerar redan.
+2026-03-13T19:08:45.583+01:00  WARN 19860 --- [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h30m36s699ms703µs100ns).
