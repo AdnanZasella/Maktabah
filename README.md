@@ -1,6 +1,6 @@
 # Maktabah
 
-A web-based Islamic knowledge platform for Muslim students at beginner, intermediate, and advanced levels.
+A web-based Islamic knowledge platform for Muslim students at beginner, intermediate, and advanced levels. 
 
 ## What it does
 
@@ -97,3 +97,8 @@ Unverified content is never shown to any user under any circumstance — all que
 - JWTs stored in HttpOnly cookies only
 - Role checks enforced on both frontend and backend
 - Error responses never expose stack traces or internal details
+
+
+## Claude code
+
+This project is made with help from Claude code, the whole project was made to improve my Java Fullstack skills aswell as learning to work with Claude Code in a professional way.
